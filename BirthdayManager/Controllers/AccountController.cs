@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using System.Security.Claims;
@@ -422,6 +423,19 @@ namespace BirthdayManager.Controllers
             }
 
             base.Dispose(disposing);
+        }
+
+        [AllowAnonymous]
+        public async Task Setup()
+        {
+            var usersSeed = new List<ApplicationUser>();
+
+            //usersSeed.Add(new ApplicationUser() { UserName = model.Email, Email = model.Email });
+
+            foreach (var applicationUser in usersSeed)
+            {
+                await UserManager.CreateAsync(applicationUser, "Qwerty123456");
+            }
         }
 
         #region Helpers

@@ -258,6 +258,10 @@
     <Compile Include="Migrations\201803120820378_AddedFirstLastName.Designer.cs">
       <DependentUpon>201803120820378_AddedFirstLastName.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201803120847323_RenameBalance.cs" />
+    <Compile Include="Migrations\201803120847323_RenameBalance.Designer.cs">
+      <DependentUpon>201803120847323_RenameBalance.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Core\ViewModels\AccountViewModels.cs" />
     <Compile Include="Persistence\ApplicationDbContext.cs" />
@@ -613,6 +617,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201803120820378_AddedFirstLastName.resx">
       <DependentUpon>201803120820378_AddedFirstLastName.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201803120847323_RenameBalance.resx">
+      <DependentUpon>201803120847323_RenameBalance.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

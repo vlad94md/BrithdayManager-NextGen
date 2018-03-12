@@ -12,7 +12,7 @@ namespace BirthdayManager.Core.Models
         public string LastName { get; set; }
         public byte DayOfBirth { get; set; }
         public byte MonthOfBirth { get; set; }
-        public decimal Count { get; set; }
+        public decimal Balance { get; set; }
         public Location Location { get; set; }
 
         public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<ApplicationUser> manager)

@@ -17,6 +17,7 @@ else
         <tr>
             <th>Username</th>
             <th>Date Of Birth</th>
+            <th>Balance</th>
         </tr>
         </thead>
         <tbody>
@@ -25,6 +26,7 @@ else
             <tr>
                 <td>@Html.ActionLink(@user.UserName, "Details", new { username = user.UserName }) </td>
                 <td>@user.MonthOfBirth / @user.DayOfBirth </td>
+                <td>@user.Balance </td>
             </tr>
         }
         </tbody>

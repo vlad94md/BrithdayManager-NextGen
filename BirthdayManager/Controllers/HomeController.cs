@@ -3,11 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.UI;
 
 namespace BirthdayManager.Controllers
 {
+    [AllowAnonymous]
     public class HomeController : Controller
     {
+        [OutputCache(Duration = 50, Location = OutputCacheLocation.Server)]
         public ActionResult Index()
         {
             return View();
