@@ -10,7 +10,6 @@ namespace BirthdayManager.Controllers
     [AllowAnonymous]
     public class HomeController : Controller
     {
-        [OutputCache(Duration = 50, Location = OutputCacheLocation.Server)]
         public ActionResult Index()
         {
             return View();
