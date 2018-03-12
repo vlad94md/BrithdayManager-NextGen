@@ -226,17 +226,39 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\ArrangementsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\PaymentsController.cs" />
+    <Compile Include="Controllers\UsersController.cs" />
+    <Compile Include="Core\Enums\Location.cs" />
+    <Compile Include="Core\Enums\TransactionType.cs" />
     <Compile Include="Core\Models\Arrangement.cs" />
     <Compile Include="Core\Models\MoneyTransaction.cs" />
     <Compile Include="Core\Models\Subscription.cs" />
+    <Compile Include="Core\Constants\RoleNames.cs" />
     <Compile Include="GlimpseSecurityPolicy.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Core\Models\ApplicationUser.cs" />
-    <Compile Include="Persistence\Migrations\Configuration.cs" />
+    <Compile Include="Migrations\201803120721429_Initial.cs" />
+    <Compile Include="Migrations\201803120721429_Initial.Designer.cs">
+      <DependentUpon>201803120721429_Initial.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201803120807520_AddedDomainModels.cs" />
+    <Compile Include="Migrations\201803120807520_AddedDomainModels.Designer.cs">
+      <DependentUpon>201803120807520_AddedDomainModels.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201803120809589_AddedOtherModels.cs" />
+    <Compile Include="Migrations\201803120809589_AddedOtherModels.Designer.cs">
+      <DependentUpon>201803120809589_AddedOtherModels.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201803120820378_AddedFirstLastName.cs" />
+    <Compile Include="Migrations\201803120820378_AddedFirstLastName.Designer.cs">
+      <DependentUpon>201803120820378_AddedFirstLastName.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Core\ViewModels\AccountViewModels.cs" />
     <Compile Include="Persistence\ApplicationDbContext.cs" />
     <Compile Include="Core\ViewModels\ManageViewModels.cs" />
@@ -555,12 +577,16 @@
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Views\Shared\_NavBar.cshtml" />
+    <Content Include="Views\Users\Details.cshtml" />
+    <Content Include="Views\Users\List.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Controllers\Api\" />
     <Folder Include="Core\Dtos\" />
     <Folder Include="Scripts\app\" />
+    <Folder Include="Views\Arrangements\" />
+    <Folder Include="Views\Payments\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
@@ -574,6 +600,20 @@
   <ItemGroup>
     <None Include="packages.config" />
     <Content Include="Scripts\jquery-1.10.2.min.map" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201803120721429_Initial.resx">
+      <DependentUpon>201803120721429_Initial.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201803120807520_AddedDomainModels.resx">
+      <DependentUpon>201803120807520_AddedDomainModels.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201803120809589_AddedOtherModels.resx">
+      <DependentUpon>201803120809589_AddedOtherModels.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201803120820378_AddedFirstLastName.resx">
+      <DependentUpon>201803120820378_AddedFirstLastName.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

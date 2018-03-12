@@ -1,0 +1,41 @@
+﻿@model List<BirthdayManager.Core.Models.ApplicationUser>
+
+@{
+    ViewBag.Title = "Users";
+}
+
+<h2>Users</h2>
+
+@if (!Model.Any())
+{
+    <p>We don't have any users yet.</p>
+}
+else
+{
+    <table id="users" class="table table-bordered table-hover">
+        <thead>
+        <tr>
+            <th>Username</th>
+            <th>Date Of Birth</th>
+        </tr>
+        </thead>
+        <tbody>
+        @foreach (var user in @Model)
+        {
+            <tr>
+                <td>@Html.ActionLink(@user.UserName, "Details", new { username = user.UserName }) </td>
+                <td>@user.MonthOfBirth / @user.DayOfBirth </td>
+            </tr>
+        }
+        </tbody>
+    </table>
+}
+
+
+@section Scripts{
+    <script>
+        $(document).ready(function () {
+            var table = $("#users").DataTable();
+        });
+    </script>
+}
