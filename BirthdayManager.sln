@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.27130.2010
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BirthdayManager", "BirthdayManager\BirthdayManager.csproj", "{FDCE0DFF-1E8E-4DD0-9EE7-917F6F466C41}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BirthdayManager.Tests", "BirthdayManager.Tests\BirthdayManager.Tests.csproj", "{51EE8871-6270-4127-B873-06E4C2A3029C}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{FDCE0DFF-1E8E-4DD0-9EE7-917F6F466C41}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FDCE0DFF-1E8E-4DD0-9EE7-917F6F466C41}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FDCE0DFF-1E8E-4DD0-9EE7-917F6F466C41}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FDCE0DFF-1E8E-4DD0-9EE7-917F6F466C41}.Release|Any CPU.Build.0 = Release|Any CPU
+		{51EE8871-6270-4127-B873-06E4C2A3029C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{51EE8871-6270-4127-B873-06E4C2A3029C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{51EE8871-6270-4127-B873-06E4C2A3029C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{51EE8871-6270-4127-B873-06E4C2A3029C}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {15BD0360-DEA0-4C6A-BA36-C491CF4B741D}
+	EndGlobalSection
+EndGlobal
