@@ -228,6 +228,9 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Core\Models\Arrangement.cs" />
+    <Compile Include="Core\Models\MoneyTransaction.cs" />
+    <Compile Include="Core\Models\Subscription.cs" />
     <Compile Include="GlimpseSecurityPolicy.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
