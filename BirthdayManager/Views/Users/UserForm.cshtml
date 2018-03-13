@@ -1,0 +1,62 @@
+﻿@model BirthdayManager.Core.ViewModels.UserFormViewModel
+
+@{
+    ViewBag.Title = "User";
+}
+
+<h2 class="user-details-header"><i class="fa fa-user"></i> Edit User</h2>
+
+
+@using (@Html.BeginForm("Save", "Users", FormMethod.Post))
+{
+    @Html.ValidationSummary(true, "Oops.. something went wrong :(")
+    <div class="form-group">
+        @Html.LabelFor(m => m.UserName)
+        @Html.TextBoxFor(m => m.UserName, new { @class = "form-control" })
+        @Html.ValidationMessageFor(m => m.UserName)
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(m => m.FirstName)
+        @Html.TextBoxFor(m => m.FirstName, new { @class = "form-control" })
+        @Html.ValidationMessageFor(m => m.FirstName)
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(m => m.LastName)
+        @Html.TextBoxFor(m => m.LastName, new { @class = "form-control" })
+        @Html.ValidationMessageFor(m => m.LastName)
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(m => m.DayOfBirth)
+        @Html.TextBoxFor(m => m.DayOfBirth, new { @class = "form-control" })
+        @Html.ValidationMessageFor(m => m.DayOfBirth)
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(m => m.MonthOfBirth)
+        @Html.TextBoxFor(m => m.MonthOfBirth, new { @class = "form-control" })
+        @Html.ValidationMessageFor(m => m.MonthOfBirth)
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(m => m.Balance)
+        @Html.TextBoxFor(m => m.Balance, new { @class = "form-control", @readonly = "readonly"})
+        @Html.ValidationMessageFor(m => m.Balance)
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(m => m.Email)
+        @Html.TextBoxFor(m => m.Email, new { @class = "form-control" })
+        @Html.ValidationMessageFor(m => m.Email)
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(m => m.Location)
+        @Html.EnumDropDownListFor( x => x.Location,"Select Location", new { @class = "form-control" })
+        @Html.ValidationMessageFor(m => m.Location)
+    </div>
+
+    @Html.HiddenFor(m => m.Id);
+    @Html.AntiForgeryToken()
+    <button type="submit" class="btn btn-primary"> Save </button>
+}
+
+@section scripts
+{
+    @Scripts.Render("~/bundles/jqueryval")
+}

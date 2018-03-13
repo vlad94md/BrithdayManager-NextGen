@@ -4,7 +4,7 @@
     ViewBag.Title = "Users";
 }
 
-<h2 class="users-list-header"><i class="fa fa-users"></i> Users</h2>
+<h2 class="users-list-header"><i class="fa fa-users"></i>  Users</h2>
 
 @if (!Model.Any())
 {
@@ -20,7 +20,6 @@ else
             <th>Date Of Birth</th>
             <th>Balance</th>
             <th>Location</th>
-            <th>Edit</th>
         </tr>
         </thead>
         <tbody>
@@ -32,7 +31,6 @@ else
                 <td>@user.GetBirthdate() </td>
                 <td>@user.Balance </td>
                 <td>@user.GetLocation() </td>
-                <td>@Html.ActionLink("Edit", "Edit", new { username = user.UserName })</td>
             </tr>
         }
         </tbody>

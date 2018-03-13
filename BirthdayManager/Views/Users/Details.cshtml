@@ -4,4 +4,23 @@
     ViewBag.Title = "Details";
 }
 
-<h2>@Model.UserName</h2>
+<h2 class="user-details-header"><i class="fa fa-user"></i> @Model.GetFullname()</h2>
+
+<div class="row">
+    <div class="col-md-4">
+        <div class="panel panel-default">
+            <div class="panel-body">
+                <ul>
+                    <li>Username: @Model.UserName.ToLower()</li>
+                    <li>First Name: @Model.FirstName</li>
+                    <li>Last Name: @Model.LastName</li>
+                    <li>Birthday: @Model.GetBirthdate()</li>
+                    <li>Email: @Model.Email</li>
+                    <li>Location: @Model.GetLocation()</li>
+                    <li>Balance: @Model.Balance</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+

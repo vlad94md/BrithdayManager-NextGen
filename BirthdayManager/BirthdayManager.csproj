@@ -226,10 +226,16 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\Api\PaymentsController.cs" />
+    <Compile Include="Core\Constants\WebValidationErrorMessages.cs" />
+    <Compile Include="Core\ViewModels\PaymentViewModel.cs" />
+    <Compile Include="Core\Dtos\UserDto.cs" />
+    <Compile Include="Controllers\Api\UsersController.cs" />
     <Compile Include="Controllers\ArrangementsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\PaymentsController.cs" />
+    <Compile Include="Core\ViewModels\UserFormViewModel.cs" />
     <Compile Include="Controllers\UsersController.cs" />
     <Compile Include="Core\Enums\Location.cs" />
     <Compile Include="Core\Enums\TransactionType.cs" />
@@ -584,14 +590,15 @@
     <Content Include="Views\Shared\_NavBar.cshtml" />
     <Content Include="Views\Users\Details.cshtml" />
     <Content Include="Views\Users\List.cshtml" />
+    <Content Include="Views\Users\ReadOnlyList.cshtml" />
+    <Content Include="Views\Users\UserForm.cshtml" />
+    <Content Include="Views\Payments\List.cshtml" />
+    <Content Include="Views\Payments\PaymentForm.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Controllers\Api\" />
-    <Folder Include="Core\Dtos\" />
     <Folder Include="Scripts\app\" />
     <Folder Include="Views\Arrangements\" />
-    <Folder Include="Views\Payments\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />

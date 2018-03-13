@@ -22,3 +22,33 @@ select,
 textarea {
     max-width: 280px;
 }
+
+/* UserController pages css */
+.user-details-header {
+    padding-top: 20px;
+    padding-bottom: 20px;
+}
+
+.users-list-header {
+    padding-top: 10px;
+    padding-bottom: 5px;
+}
+
+/*PaymentsController pages css */
+.payments-list-header {
+    padding-top: 10px;
+    padding-bottom: 5px;
+}
+
+/*General validation errors css */
+.field-validation-error {
+    color: #cc5353;
+}
+
+.input-validation-error {
+    border: 2px solid #cc5353;
+}
+
+.validation-summary-errors {
+    color: #cc5353;
+}

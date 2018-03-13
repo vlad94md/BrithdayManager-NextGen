@@ -1,4 +1,5 @@
-﻿@{
+﻿@model List<string>
+@{
     ViewBag.Title = "Home Page";
 }
 
@@ -7,14 +8,18 @@
 </div>
 
 <div class="row">
-    <div class="col-md-4">
-        <img class="img-rounded" src="~/Content/img/cake.png" style="max-width: 365px"/>
-    </div>
     <div class="col-md-8">
-        <h4>Next birthdays:</h4>
-        <ul>
-            <li><i class="fa fa-birthday-cake"></i> Didina Prodan January 31</li>
-            <li><i class="fa fa-birthday-cake"></i> Vlad Guleaev  April 08</li>
+        <img class="img-rounded" src="~/Content/img/cake.png" style="max-width: 365px; display: block; margin: 0 auto;"/>
+    </div>
+    <div class="col-md-4">
+        <ul class="list-group">
+            <li href="#" class="list-group-item active">
+                Next birthdays:
+            </li>
+            @foreach (var birthday in Model)
+            {
+                <li class="list-group-item"><i class="fa fa-birthday-cake"></i> @birthday</li>
+            }
         </ul>
     </div>
 </div>
