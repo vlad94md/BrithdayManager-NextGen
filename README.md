@@ -17,3 +17,4 @@ Libraries:
 - Toastr.js (notifications)
 - DataTable.js
 - Bootswatch css
+- Animate.css
