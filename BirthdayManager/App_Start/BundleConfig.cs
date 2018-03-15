@@ -32,6 +32,7 @@ namespace BirthdayManager
                       "~/Content/typeahead.css",
                       "~/Content/toastr.css",
                       "~/Content/bootstrap-paper.min.css",
+                      "~/Content/animate.css",
                       "~/Content/site.css"));
         }
     }

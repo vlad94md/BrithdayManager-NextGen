@@ -1,0 +1,302 @@
+﻿@model List<BirthdayManager.Core.ViewModels.CallendarArrangementViewModel>
+
+@{
+    ViewBag.Title = "Birthdays Calendar";
+}
+
+<h2 class="calendar-list-header"><i class="fa fa-calendar"></i> Birthdays Calendar</h2>
+
+<div id="calendar-container" class="row">
+    @foreach (var birthday in @Model)
+    {
+        <div class="col-md-3 col-sm-1">
+
+            <div class="panel panel-default birthday-card" data-arrangement-id="@birthday.Id" data-arrangement-username="@birthday.ApplicationUser.UserName.ToLower()">
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-xs-7">
+                            <div class="birthday-card-text">
+                                <p class="card-fullname">@birthday.ApplicationUser.GetFullname()</p>
+                                <p class="card-birthday">@birthday.ApplicationUser.GetBirthdate()</p>
+                            </div>
+
+                        </div>
+                        <div class="col-xs-5">
+                            <div class="birthday-card-image">
+                                <i class="fa fa-birthday-cake"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+</div>
+
+<div id="birthday-modal" class="modal fade">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h3 class="modal-title">Modal title</h3>
+            </div>
+            <div class="modal-body">
+                <div class="row" style="margin: 10px;">
+                    <div class="col-md-6 col-sm-12">
+                        <form id="modal-arrangement-form" class="form-horizontal">
+                            <div class="form-group">
+                                <label>Birthday</label>
+                                <input type="text" id="" class="form-control modal-birthday-input" readonly>
+                            </div>
+                            <div class="form-group">
+                                <label>Collected Budget</label>
+                                <input type="text" class="form-control modal-budget-input" value="0" readonly="">
+                            </div>
+                            <div class="form-group">
+                                <label>Gift Price</label>
+                                <div>
+                                    <input type="text" class="form-control" id="modal-gift-price" placeholder="Gift Price">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="textArea">Gift Description</label>
+                                <div>
+                                    <textarea class="form-control" rows="3" id="modal-gift-description"></textarea>
+                                    <span class="help-block">Description here..</span>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="col-md-6 col-sm-12">
+                        <div class="form-group">
+                            <label>Add Subscriber</label>
+                            <div class="tt-container">
+                                <input id="user-input" name="FullName" required type="text" value="" class="form-control" />
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-9">
+                                <p>Subscribers:</p>
+                                <ul id="subscriber-list" class="list-group"></ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" id="modal-close-button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button type="button" id="modal-save-button" class="btn btn-primary">Save changes</button>
+                <button type="button" id="modal-finish-button" class="btn btn-info">It's done</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section scripts{
+    <script>
+        $(document).ready(function () {
+            var selectedCardModel = {
+                id: 0,
+                birthdayManUsername: "",
+                subscribersUseranmes: [],
+                giftPrice: 0,
+                giftDescription: ""
+            };
+
+            var users = new Bloodhound({
+                datumTokenizer: Bloodhound.tokenizers.obj.whitespace('fullName'),
+                queryTokenizer: Bloodhound.tokenizers.whitespace,
+                //prefetch: '/api/users/'
+                remote: {
+                    url: '/api/users?query=%QUERY',
+                    wildcard: '%QUERY'
+                }
+            });
+
+            $('#user-input').typeahead({
+                minLength: 1,
+                highlight: true
+            },
+                {
+                    name: 'users',
+                    display: 'fullName',
+                    source: users,
+                    limit: 10,
+                })
+                .on('typeahead:select',
+                function (e, user) {
+
+                    for (var i = 0; i < selectedCardModel.subscribersUseranmes.length; i++) {
+                        if (selectedCardModel.subscribersUseranmes[i].username.toLowerCase() == user.userName.toLowerCase()) {
+                            toastr.error("User is already in list.");
+                            $("#user-input").typeahead("val", "");
+                            return;
+                        }
+                    }
+
+                    addSubscriberToList(user.userName, user.fullName);
+                    rebindSubscriberListDeleteEvents();
+
+                    $("#user-input").typeahead("val", "");
+
+                    selectedCardModel.subscribersUseranmes.push({
+                        username: user.userName,
+                        fullname: user.fullName
+                    });
+
+                    //recalculate budget
+                    var budget = selectedCardModel.subscribersUseranmes.length * 60;
+                    $("#birthday-modal .modal-budget-input").val(budget);
+                });
+
+            $(".birthday-card").click(function (e) {
+                var fullname = $(this).find(".card-fullname").html();
+                var birthdayDate = $(this).find(".card-birthday").html();
+
+                selectedCardModel.id = $(this).attr("data-arrangement-id");
+
+                var isArrangementExists = selectedCardModel.id != undefined && selectedCardModel.id != 0;
+                if (isArrangementExists) {
+
+                    $.ajax({
+                        url: "/api/arrangemets/" + selectedCardModel.id,
+                        method: "GET",
+                        dataType: 'json',
+                        success: function (result) {
+                            selectedCardModel.birthdayManUsername = result.birthdayManUsername;
+                            selectedCardModel.subscribersUseranmes = result.subscribersUseranmes;
+                            selectedCardModel.giftPrice = result.giftPrice;
+                            selectedCardModel.giftDescription = result.giftDescription;
+
+                            //Fill form
+                            $("#modal-gift-price").val(selectedCardModel.giftPrice);
+                            $("#modal-gift-description").val(selectedCardModel.giftDescription);
+
+                            $.each(selectedCardModel.subscribersUseranmes,
+                                function (index, subscriber) {
+                                    addSubscriberToList(subscriber.username, subscriber.fullname);
+                                });
+
+                            rebindSubscriberListDeleteEvents();
+
+                            //recalculate budget
+                            var budget = selectedCardModel.subscribersUseranmes.length * 60;
+                            $("#birthday-modal .modal-budget-input").val(budget);
+                        },
+                        error: function (ex) {
+                            toastr.error(ex.responseJSON.message);
+                        }
+                    });
+                } else {
+                    selectedCardModel.birthdayManUsername = $(this).attr("data-arrangement-username");
+                }
+
+                $("#birthday-modal .modal-title").html('<i class="fa fa-birthday-cake"></i> ' + fullname);
+                $("#birthday-modal .modal-birthday-input").val(birthdayDate);
+
+                $("#birthday-modal").modal('show');
+            });
+
+
+            $('#birthday-modal').on('hidden.bs.modal', function () {
+                clearModalDialogForm();
+            });
+
+            $('#modal-finish-button').click(function (e) {
+                bootbox.confirm({
+                    title: "Finish arrangement for this birthday?",
+                    message: "After finishing birthday card is marked as 'Complete' one. When birthday card becomes complete all the calculations are done and subscribers balance is adjusted.",
+                    callback: function (result) {
+                        alert('Not implemented yet ha ha');
+                        if (result) {
+                            //$.ajax({
+                            //    url: "/api/payments/revert/" + button.attr("data-transaction-id"),
+                            //    method: "POST",
+                            //    success: function () {
+                            //        toastr.success("Transaction was reverted with success.");
+                            //        //table.row(button.parents("tr")).remove().draw();
+                            //    }
+                            //});
+                        }
+                    }
+                });
+            });
+
+            $('#modal-save-button').click(function (e) {
+
+                selectedCardModel.giftPrice = $("#modal-gift-price").val();
+                selectedCardModel.giftDescription = $("#modal-gift-description").val();
+
+                if (isNaN(selectedCardModel.giftPrice)) {
+                    toastr.error("Gift price should be a number.");
+                    return;
+                }
+
+                //Start animate loading
+                $('#modal-save-button').append('<i class="fa fa-circle-o-notch fa-spin" style="margin-left:5px;"></i>');
+
+                $.ajax({
+                    url: "/api/arrangemets",
+                    method: "POST",
+                    dataType: 'json',
+                    data: selectedCardModel,
+                    success: function (id) {
+                        toastr.success("Saved successfully.");
+                        //Set new created arrangement id
+                        $('[data-arrangement-username=' + selectedCardModel.birthdayManUsername.toLowerCase() + ']').attr('data-arrangement-id', id);
+
+                        $("#birthday-modal").modal('hide');
+                        clearModalDialogForm();
+                        $('#modal-save-button').html('Save changes');
+
+                    },
+                    error: function (ex) {
+                        toastr.error(ex.responseJSON.message);
+                        $('#modal-save-button').html('Save changes');
+                    }
+                });
+            });
+
+            function clearModalDialogForm() {
+                $("#subscriber-list").html('');
+                $("#birthday-modal .modal-budget-input").val(0);
+                $("#modal-gift-price").val(0);
+                $("#modal-gift-description").val('');
+                selectedCardModel = {
+                    id: 0,
+                    userName: "",
+                    subscribersUseranmes: [],
+                    giftPrice: 0,
+                    giftDescription: ""
+                };
+            }
+
+            function addSubscriberToList(username, fullname) {
+                $("#subscriber-list").append(
+                    "<li " +
+                    "class='card-subscriber-item list-group-item animated bounceIn' data-username='" +
+                    username +
+                    "'>" +
+                    fullname +
+                    "<button class='pull-right btn-link js-user-delete'><i class='fa fa-close'></i></button>" +
+                    "</li>"
+                );
+            }
+
+            function rebindSubscriberListDeleteEvents() {
+                $(".js-user-delete").off("click");
+                $(".js-user-delete").click(function (e) {
+                    var subscriberUsername = $(this).parent().attr('data-username');
+
+                    selectedCardModel.subscribersUseranmes = selectedCardModel.subscribersUseranmes.filter(function (subscriber) {
+                        return subscriber.username !== subscriberUsername;
+                    });
+
+                    $(this).parent().remove();
+                });
+            }
+        });
+    </script>
+}

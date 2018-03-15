@@ -1,11 +1,11 @@
 ﻿@model BirthdayManager.Core.ViewModels.PaymentViewModel
 
 @{
-    ViewBag.Title = "New Paymnet";
+    ViewBag.Title = "New Payment";
 
 }
 
-<h2>New Paymnet</h2>
+<h2>New Payment</h2>
 
 <form id="newPaymnet" action="@Url.Action("Save", "Payments")" method="post">
 
@@ -69,7 +69,8 @@
                 {
                     name: 'users',
                     display: 'fullName',
-                    source: users
+                    source: users,
+                    limit: 10,
                 })
                 .on('typeahead:select',
                 function (e, user) {

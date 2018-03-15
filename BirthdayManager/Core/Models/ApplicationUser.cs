@@ -42,6 +42,21 @@ namespace BirthdayManager.Core.Models
             return date.ToString("MMMM d");
         }
 
+        public DateTime GetBirthdayForCurrentYear()
+        {
+            return new DateTime(DateTime.Now.Year, MonthOfBirth, DayOfBirth);
+        }
+
+        public bool IsBirthdayNextMonth(int period = 20)
+        {
+            if (MonthOfBirth == 0 || DayOfBirth == 0)
+                return false;
+
+            var date = new DateTime(DateTime.Now.Year, MonthOfBirth, DayOfBirth);
+
+            return DateTime.Now < date && DateTime.Now.AddDays(period) > date;
+        }
+
         public string GetLocation()
         {
             switch (Location)

@@ -9,6 +9,7 @@ namespace BirthdayManager.Core.Enums
     {
         None = 0,
         Supply = 1,
-        Withdraw = 2
+        Withdraw = 2,
+        Revert = 3
     }
 }

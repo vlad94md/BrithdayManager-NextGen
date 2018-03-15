@@ -11,7 +11,6 @@ using BirthdayManager.Persistence;
 
 namespace BirthdayManager.Controllers.Api
 {
-    [Authorize(Roles = RoleNames.Admin)]
     public class UsersController : ApiController
     {
         private ApplicationDbContext _context;

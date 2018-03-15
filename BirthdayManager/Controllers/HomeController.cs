@@ -22,22 +22,12 @@ namespace BirthdayManager.Controllers
         {
             var users = _context.Users.ToList();
 
-            var nextMonthBirthdays = users.Where(x => IsBirthdayNextMonth(x.MonthOfBirth, x.DayOfBirth))
+            var nextMonthBirthdays = users.Where(x => x.IsBirthdayNextMonth())
                 .OrderBy(x => x.MonthOfBirth).ThenBy(x => x.DayOfBirth)
                 .Select(x => x.GetFullname() + ", " + x.GetBirthdate())
                 .ToList();
 
             return View(nextMonthBirthdays);
-        }
-
-        private bool IsBirthdayNextMonth(int month, int day)
-        {
-            if (month == 0 || day == 0)
-                return false;
-
-            var date = new DateTime(DateTime.Now.Year, month, day);
-
-            return DateTime.Now < date && DateTime.Now.AddDays(20) > date;
         }
 
         public ActionResult About()

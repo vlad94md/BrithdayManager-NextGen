@@ -1,10 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
 using BirthdayManager.Core.Constants;
+using BirthdayManager.Core.Enums;
+using BirthdayManager.Core.Models;
 using BirthdayManager.Persistence;
 
 namespace BirthdayManager.Controllers.Api
@@ -23,13 +26,46 @@ namespace BirthdayManager.Controllers.Api
         [HttpDelete]
         public void DeletePayment(int id)
         {
-            var customerFromDb = _context.MoneyTransactions.SingleOrDefault(c => c.Id == id);
+            var transaction = _context.MoneyTransactions.SingleOrDefault(c => c.Id == id);
 
-            if (customerFromDb == null)
+            if (transaction == null)
                 throw new HttpResponseException(HttpStatusCode.NotFound);
 
-            _context.MoneyTransactions.Remove(customerFromDb);
+            _context.MoneyTransactions.Remove(transaction);
             _context.SaveChanges();
         }
+
+        //POST /api/payments/revert/1
+        [HttpPost]
+        [Route("api/payments/revert/{id}")]
+        public IHttpActionResult RevertPayment(int id)
+        {
+            var transaction = _context.MoneyTransactions
+                .Include(x => x.ApplicationUser)
+                .SingleOrDefault(c => c.Id == id);
+
+            if (transaction == null)
+                return NotFound();
+
+            if (transaction.IsRevertMade)
+                return BadRequest("Transaction can't be reverted one more time.");
+
+            var revertedTransaction = new MoneyTransaction()
+            {
+                ApplicationUser = transaction.ApplicationUser,
+                Amount = -transaction.Amount,
+                Date = DateTime.Now,
+                Description = "Revert for " + transaction.Id,
+                Type = TransactionType.Revert
+            };
+
+            transaction.ApplicationUser.Balance += revertedTransaction.Amount;
+            transaction.IsRevertMade = true;
+
+            _context.MoneyTransactions.Add(revertedTransaction);
+            _context.SaveChanges();
+
+            return Ok(true);
+        }    
     }
 }

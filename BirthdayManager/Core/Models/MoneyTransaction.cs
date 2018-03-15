@@ -24,5 +24,7 @@ namespace BirthdayManager.Core.Models
         public TransactionType Type { get; set; }
 
         public ApplicationUser ApplicationUser { get; set; }
+
+        public bool IsRevertMade { get; set; }
     }
 }

@@ -226,7 +226,11 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Core\Dtos\ArrangementDto.cs" />
+    <Compile Include="Controllers\Api\ArrangementsController.cs" />
     <Compile Include="Controllers\Api\PaymentsController.cs" />
+    <Compile Include="Core\Dtos\SubscriberDto.cs" />
+    <Compile Include="Core\ViewModels\CallendarArrangementViewModel.cs" />
     <Compile Include="Core\Constants\WebValidationErrorMessages.cs" />
     <Compile Include="Core\ViewModels\PaymentViewModel.cs" />
     <Compile Include="Core\Dtos\UserDto.cs" />
@@ -268,6 +272,10 @@
     <Compile Include="Migrations\201803120847323_RenameBalance.Designer.cs">
       <DependentUpon>201803120847323_RenameBalance.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201803151307208_AddedIsRevetedForTransaction.cs" />
+    <Compile Include="Migrations\201803151307208_AddedIsRevetedForTransaction.Designer.cs">
+      <DependentUpon>201803151307208_AddedIsRevetedForTransaction.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Core\ViewModels\AccountViewModels.cs" />
     <Compile Include="Persistence\ApplicationDbContext.cs" />
@@ -277,6 +285,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="App_Readme\Elmah.txt" />
+    <Content Include="Content\animate.css" />
     <Content Include="Content\bootstrap-paper.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
@@ -594,11 +603,11 @@
     <Content Include="Views\Users\UserForm.cshtml" />
     <Content Include="Views\Payments\List.cshtml" />
     <Content Include="Views\Payments\PaymentForm.cshtml" />
+    <Content Include="Views\Arrangements\Calendar.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Scripts\app\" />
-    <Folder Include="Views\Arrangements\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
@@ -628,6 +637,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201803120847323_RenameBalance.resx">
       <DependentUpon>201803120847323_RenameBalance.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201803151307208_AddedIsRevetedForTransaction.resx">
+      <DependentUpon>201803151307208_AddedIsRevetedForTransaction.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

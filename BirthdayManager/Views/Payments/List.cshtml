@@ -23,7 +23,7 @@ else
             <th>Description</th>
             <th>Date</th>
             <th>Type</th>
-            <th>Delete</th>
+            <th>Revert</th>
         </tr>
         </thead>
         <tbody>
@@ -36,7 +36,7 @@ else
                 <td>@transaction.Description </td>
                 <td>@transaction.Date </td>
                 <td>@transaction.Type </td>
-                <td><button class="btn-link js-delete" data-transaction-id="@transaction.Id">Delete</button></td>
+                <td><button class="btn-link js-revert" data-transaction-id="@transaction.Id"><i class="fa fa-undo"></i></button></td>
             </tr>
         }
         </tbody>
@@ -52,22 +52,28 @@ else
 
 
             $("#transactions").on("click",
-                ".js-delete",
+                ".js-revert",
                 function () {
                     var button = $(this);
-                    bootbox.confirm("Are you sure you want to delete this transaction?",
-                        function (result) {
+                    bootbox.confirm({
+                        title: "Are you sure you want to revert?",
+                        message: "Please note that in order to revert a transaction another transaction will be created with type 'Revert'. New transaction will have reversed amount of selected one. It will make user's balance to return in previous state.",
+                        callback: function (result) {
                             if (result) {
                                 $.ajax({
-                                    url: "/api/payments/" + button.attr("data-transaction-id"),
-                                    method: "DELETE",
+                                    url: "/api/payments/revert/" + button.attr("data-transaction-id"),
+                                    method: "POST",
                                     success: function () {
-                                        toastr.success("Payment was deleted.");
-                                        table.row(button.parents("tr")).remove().draw();
+                                        toastr.success("Transaction was reverted with success.");
+                                        //table.row(button.parents("tr")).remove().draw();
+                                    },
+                                    error: function (ex) {
+                                        toastr.error(ex.responseJSON.message);
                                     }
                                 });
                             }
-                        });
+                        }
+                    });
                 });
         });
     </script>

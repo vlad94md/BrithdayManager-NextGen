@@ -23,7 +23,7 @@ textarea {
     max-width: 280px;
 }
 
-/* UserController pages css */
+/* User pages css */
 .user-details-header {
     padding-top: 20px;
     padding-bottom: 20px;
@@ -34,11 +34,55 @@ textarea {
     padding-bottom: 5px;
 }
 
-/*PaymentsController pages css */
+/*Payments pages css */
 .payments-list-header {
     padding-top: 10px;
     padding-bottom: 5px;
 }
+
+/*Calendar pages css */
+.calendar-list-header {
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+.birthday-card {
+    -webkit-transition: all 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
+    transition: all 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
+}
+
+.birthday-card-image {
+    text-align: center;
+    font-size: 40px;
+}
+
+.birthday-card-text {
+    font-size: 14px;
+}
+
+    .birthday-card-text .card-fullname {
+        font-weight: bold;
+    }
+
+.card-subscriber-item {
+    font-size: 14px;
+    margin-bottom: 5px;
+    padding: 5px;
+    background: #2196f3; /*primary color*/
+    color: white;
+}
+
+.birthday-card:hover {
+    -ms-transform: scale(1.05, 1.05);
+    -webkit-transform: scale(1.05, 1.05);
+    transform: scale(1.05, 1.05);
+    cursor: pointer;
+}
+
+    .birthday-card:hover::after {
+        opacity: 1;
+    }
+
 
 /*General validation errors css */
 .field-validation-error {
