@@ -8,3 +8,13 @@ Technology stack:
 - JQuery 
 - Bootstrap 3
 - MS SQL Server
+
+Libraries:
+- Glipmse (query profiler)
+- Elmah (toring error logs in XML)
+- Bootbox.js 
+- Typeahead.js
+- Toastr.js (notifications)
+- DataTable.js
+- Bootswatch css
+- Animate.css
