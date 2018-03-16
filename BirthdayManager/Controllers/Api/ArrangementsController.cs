@@ -7,6 +7,7 @@ using System.Web.Http;
 using AutoMapper;
 using BirthdayManager.Core.Constants;
 using BirthdayManager.Core.Dtos;
+using BirthdayManager.Core.Enums;
 using BirthdayManager.Core.Models;
 using BirthdayManager.Persistence;
 
@@ -15,6 +16,7 @@ namespace BirthdayManager.Controllers.Api
     public class ArrangementsController : ApiController
     {
         private ApplicationDbContext _context;
+        private decimal _fixedBirthdayFee = 60;
 
         public ArrangementsController()
         {
@@ -49,7 +51,7 @@ namespace BirthdayManager.Controllers.Api
                     Fullname = subscriber.GetFullname()
                 });
             }
-           
+
             var arrangementDto = new ArrangementDto()
             {
                 Id = id,
@@ -71,7 +73,7 @@ namespace BirthdayManager.Controllers.Api
         public IHttpActionResult SaveArrangement(ArrangementDto arrangementDto)
         {
             if (!ModelState.IsValid)
-                throw new HttpResponseException(HttpStatusCode.BadRequest);
+                return BadRequest();
 
             var isCreateOperation = arrangementDto.Id == 0;
             if (isCreateOperation)
@@ -130,9 +132,11 @@ namespace BirthdayManager.Controllers.Api
                 if (arrangement == null)
                     return NotFound();
 
+                if (arrangement.IsComplete)
+                    return BadRequest("You can't make any changes after finishing.");
+
                 arrangement.GiftDescription = arrangementDto.GiftDescription;
                 arrangement.GiftPrice = arrangementDto.GiftPrice;
-                arrangement.IsComplete = arrangementDto.IsComplete;
 
                 if (arrangementDto.SubscribersUseranmes != null && arrangementDto.SubscribersUseranmes.Any())
                 {
@@ -159,6 +163,60 @@ namespace BirthdayManager.Controllers.Api
                 _context.SaveChanges();
                 return Ok(arrangement.Id);
             }
+        }
+
+        [HttpPost]
+        [Authorize(Roles = RoleNames.Admin)]
+        [Route("api/arrangemets/finish/{id}")]
+        public IHttpActionResult FinishArrangement(int id)
+        {
+            if (id <= 0)
+                return BadRequest("Id is invalid.");
+
+            var arrangement = _context.Arrangements
+                .Include(x => x.Subscribers)
+                .Include(x => x.ApplicationUser)
+                .FirstOrDefault(x => x.Id == id);
+
+            if (arrangement == null)
+                return NotFound();
+
+            if (arrangement.IsComplete)
+                return BadRequest("Arrangement is already marked as completed.");
+
+            if (!arrangement.Subscribers.Any())
+                return BadRequest("Arrangement doesnt have any subscribers.");
+
+            if (arrangement.GiftPrice <= 0)
+                return BadRequest("Gift price should be more than zero.");
+
+            arrangement.IsComplete = true;
+            var subsribersIds = arrangement.Subscribers.Select(x => x.ApplicationUserId).ToList();
+
+            var subscribers = _context.Users.Where(x => subsribersIds.Contains(x.Id)).ToList();
+
+            var totalBudgetCollected = subscribers.Count * _fixedBirthdayFee;
+            var calculatedFeePerPerson = _fixedBirthdayFee - (totalBudgetCollected - arrangement.GiftPrice) / subscribers.Count;
+
+            if (calculatedFeePerPerson <= 0)
+                return BadRequest("Calculated amount per person cannot be negative. Change the gift price.");
+
+            foreach (var user in subscribers)
+            {
+                _context.MoneyTransactions.Add(new MoneyTransaction()
+                {
+                    ApplicationUserId = user.Id,
+                    Date = DateTime.Now,
+                    Type = TransactionType.Withdraw,
+                    Description = $"{arrangement.ApplicationUser.GetFullname()} birthday finished.",
+                    Amount = -calculatedFeePerPerson,
+                    IsRevertMade = true //imposible to revert this
+                });
+                user.Balance -= calculatedFeePerPerson;
+            }
+
+            _context.SaveChanges();
+            return Ok(true);
         }
     }
 }

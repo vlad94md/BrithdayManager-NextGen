@@ -4,6 +4,7 @@
     ViewBag.Title = "Birthdays Calendar";
 }
 
+
 <h2 class="calendar-list-header"><i class="fa fa-calendar"></i> Birthdays Calendar</h2>
 
 <div id="calendar-container" class="row">
@@ -11,7 +12,14 @@
     {
         <div class="col-md-3 col-sm-1">
 
-            <div class="panel panel-default birthday-card" data-arrangement-id="@birthday.Id" data-arrangement-username="@birthday.ApplicationUser.UserName.ToLower()">
+            <div class="panel panel-default birthday-card 
+                 @if (birthday.IsComplete)
+                 {
+                     @Html.Raw("birthday-card-complete")
+                 }" 
+                 data-arrangement-finished="@birthday.IsComplete"
+                 data-arrangement-id="@birthday.Id" 
+                 data-arrangement-username="@birthday.ApplicationUser.UserName.ToLower()">
                 <div class="panel-body">
                     <div class="row">
                         <div class="col-xs-7">
@@ -36,6 +44,9 @@
 <div id="birthday-modal" class="modal fade">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
+            <div id="loader-container" style="display: none">
+                <div id="loader" class="centered"></div>
+            </div>
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                 <h3 class="modal-title">Modal title</h3>
@@ -71,7 +82,7 @@
                         <div class="form-group">
                             <label>Add Subscriber</label>
                             <div class="tt-container">
-                                <input id="user-input" name="FullName" required type="text" value="" class="form-control" />
+                                <input id="user-input" name="FullName" required type="text" value="" class="form-control"/>
                             </div>
                         </div>
 
@@ -86,9 +97,15 @@
 
             </div>
             <div class="modal-footer">
-                <button type="button" id="modal-close-button" class="btn btn-default" data-dismiss="modal">Close</button>
-                <button type="button" id="modal-save-button" class="btn btn-primary">Save changes</button>
-                <button type="button" id="modal-finish-button" class="btn btn-info">It's done</button>
+                <button type="button" id="modal-close-button" class="btn btn-default" data-dismiss="modal">
+                    Close
+                </button>
+                <button type="button" id="modal-save-button" class="btn btn-primary">
+                    Save <i id="modal-save-button-loader" class="fa fa-circle-o-notch fa-spin" style="margin-left: 5px; display: none"></i>
+                </button>
+                <button type="button" id="modal-finish-button" class="btn btn-info">
+                    It's done <i id="modal-finish-button-loader" class="fa fa-circle-o-notch fa-spin" style="margin-left: 5px; display: none"></i>
+                </button>
             </div>
         </div>
     </div>
@@ -159,6 +176,7 @@
 
                 var isArrangementExists = selectedCardModel.id != undefined && selectedCardModel.id != 0;
                 if (isArrangementExists) {
+                    $("#loader-container").show();
 
                     $.ajax({
                         url: "/api/arrangemets/" + selectedCardModel.id,
@@ -184,8 +202,11 @@
                             //recalculate budget
                             var budget = selectedCardModel.subscribersUseranmes.length * 60;
                             $("#birthday-modal .modal-budget-input").val(budget);
+
+                            $("#loader-container").hide();
                         },
                         error: function (ex) {
+                            $("#loader-container").hide();
                             toastr.error(ex.responseJSON.message);
                         }
                     });
@@ -209,16 +230,37 @@
                     title: "Finish arrangement for this birthday?",
                     message: "After finishing birthday card is marked as 'Complete' one. When birthday card becomes complete all the calculations are done and subscribers balance is adjusted.",
                     callback: function (result) {
-                        alert('Not implemented yet ha ha');
                         if (result) {
-                            //$.ajax({
-                            //    url: "/api/payments/revert/" + button.attr("data-transaction-id"),
-                            //    method: "POST",
-                            //    success: function () {
-                            //        toastr.success("Transaction was reverted with success.");
-                            //        //table.row(button.parents("tr")).remove().draw();
-                            //    }
-                            //});
+
+                            //Start animate loading
+                            $('#modal-finish-button-loader').show();
+                            $('#modal-finish-button').addClass('disabled');
+                            $('#modal-finish-button').attr('disabled', 'true');
+
+                            $.ajax({
+                                url: "/api/arrangemets/finish/" + selectedCardModel.id,
+                                method: "POST",
+                                success: function () {
+                                    toastr.success("Birthday card marked as finished.");
+
+                                    $('[data-arrangement-username=' + selectedCardModel.birthdayManUsername.toLowerCase() + ']').attr('data-arrangement-finished', true);
+                                    $('[data-arrangement-username=' + selectedCardModel.birthdayManUsername.toLowerCase() +']').addClass('birthday-card-complete');
+
+                                    $("#birthday-modal").modal('hide');
+                                    clearModalDialogForm();
+
+                                    $('#modal-finish-button-loader').hide();
+                                    $('#modal-finish-button').removeClass('disabled');
+                                    $('#modal-finish-button').removeAttr('disabled');
+
+                                },
+                                error: function (ex) {
+                                    toastr.error(ex.responseJSON.message);
+                                    $('#modal-finish-button-loader').hide();
+                                    $('#modal-finish-button').removeClass('disabled');
+                                    $('#modal-finish-button').removeAttr('disabled');
+                                }
+                            });
                         }
                     }
                 });
@@ -235,7 +277,9 @@
                 }
 
                 //Start animate loading
-                $('#modal-save-button').append('<i class="fa fa-circle-o-notch fa-spin" style="margin-left:5px;"></i>');
+                $('#modal-save-button-loader').show();
+                $('#modal-save-button').addClass('disabled');
+                $('#modal-save-button').attr('disabled', 'true');
 
                 $.ajax({
                     url: "/api/arrangemets",
@@ -249,12 +293,17 @@
 
                         $("#birthday-modal").modal('hide');
                         clearModalDialogForm();
-                        $('#modal-save-button').html('Save changes');
+
+                        $('#modal-save-button-loader').hide();
+                        $('#modal-save-button').removeClass('disabled');
+                        $('#modal-save-button').removeAttr('disabled');
 
                     },
                     error: function (ex) {
                         toastr.error(ex.responseJSON.message);
-                        $('#modal-save-button').html('Save changes');
+                        $('#modal-save-button-loader').hide();
+                        $('#modal-save-button').removeClass('disabled');
+                        $('#modal-save-button').removeAttr('disabled');
                     }
                 });
             });

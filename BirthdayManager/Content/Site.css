@@ -83,6 +83,50 @@ textarea {
         opacity: 1;
     }
 
+.birthday-card-complete {
+    background: #FFCE54;
+}
+
+#loader-container {
+    min-width: 100%;
+    min-height: 100%;
+    background: #0003;
+    z-index: 2;
+    position: absolute;
+}
+
+#loader {
+     border: 14px solid #f3f3f3;
+     border-radius: 50%;
+     border-top: 14px solid #3498db;
+     width: 100px;
+     height: 100px;
+     -webkit-animation: spin 1.5s linear infinite; /* Safari */
+     animation: spin 1.5s linear infinite;
+ }
+
+/* Safari */
+@-webkit-keyframes spin {
+    0% { -webkit-transform: rotate(0deg); }
+    100% { -webkit-transform: rotate(360deg); }
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+
+.centered {
+    position: absolute;
+    left: 44%;
+    top: 44%;
+    -webkit-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+}
+
+
+
 
 /*General validation errors css */
 .field-validation-error {
