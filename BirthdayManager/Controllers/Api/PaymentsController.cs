@@ -48,7 +48,10 @@ namespace BirthdayManager.Controllers.Api
                 return NotFound();
 
             if (transaction.IsRevertMade)
-                return BadRequest("Transaction can't be reverted one more time.");
+                return BadRequest("Transaction was already reverted once.");
+
+            if (transaction.Type == TransactionType.Revert || transaction.Type == TransactionType.Withdraw)
+                return BadRequest("This transaction type can't be reverted.");
 
             var revertedTransaction = new MoneyTransaction()
             {

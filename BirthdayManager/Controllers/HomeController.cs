@@ -22,7 +22,7 @@ namespace BirthdayManager.Controllers
         {
             var users = _context.Users.ToList();
 
-            var nextMonthBirthdays = users.Where(x => x.IsBirthdayNextMonth())
+            var nextMonthBirthdays = users.Where(x => x.IsBirthdayUppcommingForDaysPeriod())
                 .OrderBy(x => x.MonthOfBirth).ThenBy(x => x.DayOfBirth)
                 .Select(x => x.GetFullname() + ", " + x.GetBirthdate())
                 .ToList();

@@ -25,11 +25,22 @@ namespace BirthdayManager.Controllers
         {
             var users = _context.Users.ToList();
 
-            var usersWithUpcommingBirthday = users.Where(x => x.IsBirthdayNextMonth())
+            var usersWithUpcommingBirthday = users.Where(x => x.IsBirthdayUppcommingForDaysPeriod(20))
                 .OrderBy(x => x.MonthOfBirth).ThenBy(x => x.DayOfBirth)
                 .ToList();
 
-            var viewModel = new List<CallendarArrangementViewModel>();
+            var usersWithRecentPastBirthday = users.Where(x => x.IsBirthdayPastForDaysPeriod(20))
+                .OrderByDescending(x => x.MonthOfBirth).ThenByDescending(x => x.DayOfBirth)
+                .ToList();
+
+
+            //Remove current usery so user cant see his own birthday
+            var currrentUserName = User.Identity.Name;
+            usersWithUpcommingBirthday.RemoveAll(x => x.UserName == currrentUserName);
+            usersWithRecentPastBirthday.RemoveAll(x => x.UserName == currrentUserName);
+
+            var upcommingBirthdays = new List<CallendarArrangementViewModel>();
+            var recentPastBirthdays = new List<CallendarArrangementViewModel>();
 
             foreach (var user in usersWithUpcommingBirthday)
             {
@@ -41,8 +52,6 @@ namespace BirthdayManager.Controllers
                 };
 
                 var arrangementFromDb = _context.Arrangements
-                    .Include(x => x.Subscribers)
-                    .Include(x => x.ApplicationUser)
                     .FirstOrDefault(x => x.Birthday == arrangement.Birthday && x.ApplicationUserId == arrangement.ApplicationUserId);
 
                 var isArrangementExists = arrangementFromDb != null;
@@ -53,8 +62,37 @@ namespace BirthdayManager.Controllers
                     arrangement.IsComplete = arrangementFromDb.IsComplete;
                 }
 
-                viewModel.Add(arrangement);
+                upcommingBirthdays.Add(arrangement);
             }
+
+            foreach (var user in usersWithRecentPastBirthday)
+            {
+                var arrangement = new CallendarArrangementViewModel()
+                {
+                    ApplicationUser = user,
+                    ApplicationUserId = user.Id,
+                    Birthday = user.GetBirthdayForCurrentYear()
+                };
+
+                var arrangementFromDb = _context.Arrangements
+                    .FirstOrDefault(x => x.Birthday == arrangement.Birthday && x.ApplicationUserId == arrangement.ApplicationUserId);
+
+                var isArrangementExists = arrangementFromDb != null;
+
+                if (isArrangementExists)
+                {
+                    arrangement.Id = arrangementFromDb.Id;
+                    arrangement.IsComplete = arrangementFromDb.IsComplete;
+                }
+
+                recentPastBirthdays.Add(arrangement);
+            }
+
+            var viewModel = new CalendarViewModel()
+            {
+                UpcommingBirthdays = upcommingBirthdays,
+                RecentPastBirthdays = recentPastBirthdays
+            };
 
             return View(viewModel);
         }

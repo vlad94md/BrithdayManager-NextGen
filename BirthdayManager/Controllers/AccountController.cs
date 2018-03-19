@@ -6,15 +6,18 @@ using System.Security.Claims;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
+using BirthdayManager.Core.Constants;
+using BirthdayManager.Core.Enums;
 using BirthdayManager.Core.Models;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using BirthdayManager.Models;
+using BirthdayManager.Persistence;
+using Microsoft.AspNet.Identity.EntityFramework;
 
 namespace BirthdayManager.Controllers
 {
-    [Authorize]
     public class AccountController : Controller
     {
         private ApplicationSignInManager _signInManager;
@@ -429,12 +432,1225 @@ namespace BirthdayManager.Controllers
         public async Task Setup()
         {
             var usersSeed = new List<ApplicationUser>();
+            var roleStore = new RoleStore<IdentityRole>(new ApplicationDbContext());
+            var roleManager = new RoleManager<IdentityRole>(roleStore);
 
-            //usersSeed.Add(new ApplicationUser() { UserName = model.Email, Email = model.Email });
+            #region users
 
+            usersSeed.Add(new ApplicationUser()
+            {
+                FirstName = "Victor",
+                LastName = "Angheluta",
+                MonthOfBirth = 5,
+                DayOfBirth = 11,
+                Email = "Victor.Angheluta@endava.com",
+                UserName = "VANGHELUTA",
+                Location = Location.Tower
+            });
+            usersSeed.Add(new ApplicationUser()
+            {
+                FirstName = "Diana",
+                LastName = "Arsenii",
+                MonthOfBirth = 12,
+                DayOfBirth = 15,
+                Email = "Diana.Arsenii@endava.com",
+                UserName = "DARSENII",
+                Location = Location.Tower
+            });
+            usersSeed.Add(new ApplicationUser()
+            {
+                FirstName = "Serghei",
+                LastName = "Avdonin",
+                MonthOfBirth = 6,
+                DayOfBirth = 1,
+                Location = Location.Tower,
+                UserName = "SAVDONIN",
+                Email = "Serghei.Avdonin@endava.com"
+            });
+            usersSeed.Add(new ApplicationUser()
+            {
+                FirstName = "Daniela",
+                LastName = "Baciu",
+                MonthOfBirth = 7,
+                DayOfBirth = 11,
+                Location = Location.NBC,
+                UserName = "DBACIU",
+                Email = "Daniela.Baciu@endava.com"
+            });
+            usersSeed.Add(new ApplicationUser()
+            {
+                FirstName = "Simion",
+                LastName = "Balan",
+                MonthOfBirth = 6,
+                DayOfBirth = 15,
+                Location = Location.NBC,
+                UserName = "SBALAN",
+                Email = "Simion.Balan@endava.com"
+            });
+            usersSeed.Add(new ApplicationUser()
+            {
+                FirstName = "Igor",
+                LastName = "Bannicov",
+                MonthOfBirth = 6,
+                DayOfBirth = 12,
+                Location = Location.NBC,
+                UserName = "IBANNICOV",
+                Email = "Igor.Bannicov@endava.com"
+            });
+            usersSeed.Add(new ApplicationUser()
+            {
+                FirstName = "Mihail",
+                LastName = "Beregoi",
+                MonthOfBirth = 11,
+                DayOfBirth = 19,
+                Location = Location.Tower,
+                UserName = "MBEREGOI",
+                Email = "Mihail.Beregoi@endava.com"
+            });
+            usersSeed.Add(new ApplicationUser()
+            {
+                FirstName = "Sevastian",
+                LastName = "Odobescu",
+                MonthOfBirth = 3,
+                DayOfBirth = 5,
+                Location = Location.NBC,
+                UserName = "sodobescu",
+                Email = "Sevastian.Odobescu@endava.com"
+            });
+            usersSeed.Add(new ApplicationUser()
+            {
+                FirstName = "Andrian",
+                LastName = "Blidaru",
+                MonthOfBirth = 9,
+                DayOfBirth = 7,
+                Location = Location.NBC,
+                UserName = "ABLIDARU",
+                Email = "Andrian.Blidaru@endava.com"
+            });
+            usersSeed.Add(new ApplicationUser()
+            {
+                FirstName = "Stanislav",
+                LastName = "Bogdanschi",
+                MonthOfBirth = 1,
+                DayOfBirth = 10,
+                Location = Location.NBC,
+                UserName = "SBOGDANSCHI",
+                Email = "Stanislav.Bogdanschi@endava.com"
+            });
+            usersSeed.Add(new ApplicationUser()
+            {
+                FirstName = "Alexandru",
+                LastName = "Hangan",
+                MonthOfBirth = 3,
+                DayOfBirth = 8,
+                Location = Location.NBC,
+                UserName = "AHANGAN",
+                Email = "Alexandru.Hangan@endava.com"
+            });
+            usersSeed.Add(new ApplicationUser()
+            {
+                FirstName = "Alexandru",
+                LastName = "Bosii",
+                MonthOfBirth = 6,
+                DayOfBirth = 4,
+                Location = Location.NBC,
+                UserName = "ABOSII",
+                Email = "Alexandru.Hangan@endava.com"
+            });
+            usersSeed.Add(new ApplicationUser()
+            {
+                FirstName = "Ina",
+                LastName = "Botnari",
+                MonthOfBirth = 12,
+                DayOfBirth = 2,
+                Location = Location.Tower,
+                UserName = "IBOTNRI",
+                Email = "Ina.Botnari@endava.com"
+            });
+            usersSeed.Add(new ApplicationUser()
+            {
+                FirstName = "Eugen",
+                LastName = "Buga",
+                MonthOfBirth = 2,
+                DayOfBirth = 3,
+                Location = Location.Tower,
+                UserName = "EBUGA",
+                Email = "Eugen.Buga@endava.com"
+            });
+            usersSeed.Add(new ApplicationUser()
+            {
+                FirstName = "Adrian",
+                LastName = "Bunici",
+                MonthOfBirth = 6,
+                DayOfBirth = 24,
+                Location = Location.Tower,
+                UserName = "ABUNICI",
+                Email = "Adrian.Bunici@endava.com"
+            });
+            usersSeed.Add(new ApplicationUser()
+            {
+                FirstName = "Anastasia",
+                LastName = "Buzmacova",
+                MonthOfBirth = 11,
+                DayOfBirth = 9,
+                Location = Location.NBC,
+                UserName = "ABUZMACOVA",
+                Email = "Anastasia.Buzmacova@endava.com"
+            });
+            usersSeed.Add(new ApplicationUser()
+            {
+                FirstName = "Anatolie",
+                LastName = "Canciuc",
+                MonthOfBirth = 9,
+                DayOfBirth = 26,
+                Location = Location.NBC,
+                UserName = "ACANCIUC",
+                Email = "Anatolie.Canciuc@endava.com"
+            });
+            usersSeed.Add(new ApplicationUser()
+            {
+                FirstName = "Ilia",
+                LastName = "Cebotari",
+                MonthOfBirth = 8,
+                DayOfBirth = 2,
+                Location = Location.NBC,
+                UserName = "ICEBOTARI",
+                Email = "Ilia.Cebotari@endava.com"
+            });
+            usersSeed.Add(new ApplicationUser()
+            {
+                FirstName = "Vasile",
+                LastName = "Celac",
+                MonthOfBirth = 9,
+                DayOfBirth = 16,
+                Location = Location.NBC,
+                UserName = "VCELAC",
+                Email = "Vasile.Celac@endava.com"
+            });
+            usersSeed.Add(new ApplicationUser()
+            {
+                FirstName = "Mihail",
+                LastName = "Cepoi",
+                MonthOfBirth = 2,
+                DayOfBirth = 25,
+                Location = Location.NBC,
+                UserName = "VCELAC",
+                Email = "Vasile.Celac@endava.com"
+            });
+            usersSeed.Add(new ApplicationUser()
+            {
+                FirstName = "Victoria",
+                LastName = "Cerbu",
+                MonthOfBirth = 2,
+                DayOfBirth = 25,
+                Location = Location.NBC,
+                UserName = "VCERBU",
+                Email = "Victoria.Cerbu@endava.com"
+            });
+            usersSeed.Add(new ApplicationUser()
+            {
+                FirstName = "Tatiana",
+                LastName = "Chitina",
+                MonthOfBirth = 11,
+                DayOfBirth = 15,
+                Location = Location.NBC,
+                UserName = "TCHITINA",
+                Email = "Tatiana.Chitina@endava.com"
+            });
+            usersSeed.Add(new ApplicationUser()
+            {
+                FirstName = "Adrian",
+                LastName = "Cobilas",
+                MonthOfBirth = 10,
+                DayOfBirth = 5,
+                Location = Location.NBC,
+                UserName = "ACOBILAS",
+                Email = "Adrian.Cobilas@endava.com"
+            });
+            usersSeed.Add(new ApplicationUser()
+            {
+                FirstName = "Radu",
+                LastName = "Cojocaru",
+                MonthOfBirth = 2,
+                DayOfBirth = 17,
+                Location = Location.NBC,
+                UserName = "RACOJOCARU",
+                Email = "Radu.Cojocaru@endava.com"
+            });
+            usersSeed.Add(new ApplicationUser()
+            {
+                FirstName = "Anastasia",
+                LastName = "Corotcova",
+                MonthOfBirth = 1,
+                DayOfBirth = 11,
+                Location = Location.NBC,
+                UserName = "ACOROTCOVA",
+                Email = "Anastasia.Corotcova@endava.com"
+            });
+            usersSeed.Add(new ApplicationUser()
+            {
+                FirstName = "Ana",
+                LastName = "Costin",
+                MonthOfBirth = 5,
+                DayOfBirth = 11,
+                Location = Location.NBC,
+                UserName = "ACOSTIN",
+                Email = "Ana.Costin@endava.com"
+            });
+            usersSeed.Add(new ApplicationUser()
+            {
+                FirstName = "Marin",
+                LastName = "Efros",
+                MonthOfBirth = 3,
+                DayOfBirth = 14,
+                Location = Location.NBC,
+                UserName = "MEFROS",
+                Email = "Marin.Efros@endava.com"
+            });
+            usersSeed.Add(new ApplicationUser()
+            {
+                FirstName = "Petru",
+                LastName = "Covaliov",
+                MonthOfBirth = 8,
+                DayOfBirth = 24,
+                Location = Location.Tower,
+                UserName = "PCOVALIOV",
+                Email = "Petru.Covaliov@endava.com"
+            });
+            usersSeed.Add(new ApplicationUser()
+            {
+                FirstName = "Anastasia",
+                LastName = "Culacov",
+                MonthOfBirth = 6,
+                DayOfBirth = 26,
+                Location = Location.Tower,
+                UserName = "ACULACOV",
+                Email = "Anastasia.Culacov@endava.com"
+            });
+            usersSeed.Add(new ApplicationUser()
+            {
+                FirstName = "Alexandr",
+                LastName = "Cusnir",
+                MonthOfBirth = 9,
+                DayOfBirth = 5,
+                Location = Location.Tower,
+                UserName = "ACUSNIR",
+                Email = "Alexandr.Cusnir@endava.com"
+            });
+            usersSeed.Add(new ApplicationUser()
+            {
+                FirstName = "Dmitrii",
+                LastName = "Cuznetchii",
+                MonthOfBirth = 10,
+                DayOfBirth = 22,
+                Location = Location.NBC,
+                UserName = "dkuznetski",
+                Email = "Dmitrii.Cuznetchii@endava.com"
+            });
+            usersSeed.Add(new ApplicationUser()
+            {
+                FirstName = "Elena",
+                LastName = "Iliina",
+                MonthOfBirth = 3,
+                DayOfBirth = 16,
+                Location = Location.NBC,
+                UserName = "eiliina",
+                Email = "Elena.Iliina@endava.com"
+            });
+            usersSeed.Add(new ApplicationUser()
+            {
+                FirstName = "Artur",
+                LastName = "Dobrea",
+                MonthOfBirth = 5,
+                DayOfBirth = 15,
+                Location = Location.NBC,
+                UserName = "adobrya",
+                Email = "Artur.Dobrea@endava.com"
+            });
+            usersSeed.Add(new ApplicationUser()
+            {
+                FirstName = "Alexandru",
+                LastName = "Dogaru",
+                MonthOfBirth = 11,
+                DayOfBirth = 12,
+                Location = Location.Tower,
+                UserName = "adogarlu",
+                Email = "Alexandru.Dogaru@endava.com"
+            });
+            usersSeed.Add(new ApplicationUser()
+            {
+                FirstName = "Stela",
+                LastName = "Cotaga",
+                MonthOfBirth = 3,
+                DayOfBirth = 16,
+                Location = Location.NBC,
+                UserName = "stotaga",
+                Email = "Stela.Cotaga@endava.com"
+            });
+            usersSeed.Add(new ApplicationUser()
+            {
+                FirstName = "Ina",
+                LastName = "Don",
+                MonthOfBirth = 11,
+                DayOfBirth = 10,
+                Location = Location.NBC,
+                UserName = "idon",
+                Email = "Ina.Don@endava.com"
+            });
+            usersSeed.Add(new ApplicationUser()
+            {
+                FirstName = "Oxana",
+                LastName = "Donciu",
+                MonthOfBirth = 1,
+                DayOfBirth = 30,
+                Location = Location.NBC,
+                UserName = "oxdonciu",
+                Email = "Oxana.Donciu@endava.com"
+            });
+            usersSeed.Add(new ApplicationUser()
+            {
+                FirstName = "Sergiu",
+                LastName = "Drahnea",
+                MonthOfBirth = 1,
+                DayOfBirth = 4,
+                Location = Location.Tower,
+                UserName = "SDRAHNEA",
+                Email = "Sergiu.Drahnea@endava.com"
+            });
+            usersSeed.Add(new ApplicationUser()
+            {
+                FirstName = "Andrei",
+                LastName = "Drumov",
+                MonthOfBirth = 7,
+                DayOfBirth = 29,
+                Location = Location.NBC,
+                UserName = "ADRUMOV",
+                Email = "Andrei.Drumov@endava.com"
+            });
+            usersSeed.Add(new ApplicationUser()
+            {
+                FirstName = "Artur",
+                LastName = "Durlesteanu",
+                MonthOfBirth = 9,
+                DayOfBirth = 21,
+                Location = Location.NBC,
+                UserName = "adurleasteanu",
+                Email = "Artur.Durlesteanu@endava.com"
+            });
+            usersSeed.Add(new ApplicationUser()
+            {
+                FirstName = "Rinat",
+                LastName = "Papuc",
+                MonthOfBirth = 3,
+                DayOfBirth = 18,
+                Location = Location.NBC,
+                UserName = "RPAPUC",
+                Email = "Rinat.Papuc@endava.com"
+            });
+            usersSeed.Add(new ApplicationUser()
+            {
+                FirstName = "Iulia",
+                LastName = "Eremeeva",
+                MonthOfBirth = 7,
+                DayOfBirth = 12,
+                Location = Location.NBC,
+                UserName = "IEREMEEVA",
+                Email = "Iulia.Eremeeva@endava.com"
+            });
+            usersSeed.Add(new ApplicationUser()
+            {
+                FirstName = "Alexei",
+                LastName = "Fortuna",
+                MonthOfBirth = 10,
+                DayOfBirth = 1,
+                Location = Location.Tower,
+                UserName = "AFORTUNA",
+                Email = "Alexei.Fortuna@endava.com"
+            });
+            usersSeed.Add(new ApplicationUser()
+            {
+                FirstName = "Serghei",
+                LastName = "Golovatii",
+                MonthOfBirth = 1,
+                DayOfBirth = 26,
+                Location = Location.Tower,
+                UserName = "SGOLOVATII",
+                Email = "Serghei.Golovatii@endava.com"
+            });
+            usersSeed.Add(new ApplicationUser()
+            {
+                FirstName = "Liuba",
+                LastName = "Gonta",
+                MonthOfBirth = 5,
+                DayOfBirth = 5,
+                Location = Location.NBC,
+                UserName = "LGONTA",
+                Email = "Liuba.Gonta@endava.com"
+            });
+            usersSeed.Add(new ApplicationUser()
+            {
+                FirstName = "Ion",
+                LastName = "Gorgos",
+                MonthOfBirth = 1,
+                DayOfBirth = 1,
+                Location = Location.NBC,
+                UserName = "IGORGOS",
+                Email = "Ion.Gorgos@endava.com"
+            });
+            usersSeed.Add(new ApplicationUser()
+            {
+                FirstName = "Sergiu",
+                LastName = "Dominic",
+                MonthOfBirth = 3,
+                DayOfBirth = 21,
+                Location = Location.NBC,
+                UserName = "SDOMINIC",
+                Email = "Sergiu.Dominic@endava.com"
+            });
+            usersSeed.Add(new ApplicationUser()
+            {
+                FirstName = "Alexandr",
+                LastName = "Gumeniuc",
+                MonthOfBirth = 5,
+                DayOfBirth = 6,
+                Location = Location.Tower,
+                UserName = "AGUMENIUC",
+                Email = "Alexandr.Gumeniuc@endava.com"
+            });
+            usersSeed.Add(new ApplicationUser()
+            {
+                FirstName = "Dumitru",
+                LastName = "Gurjui",
+                MonthOfBirth = 11,
+                DayOfBirth = 6,
+                Location = Location.Tower,
+                UserName = "DGURJUI",
+                Email = "Dumitru.Gurjui@endava.com"
+            });
+            usersSeed.Add(new ApplicationUser()
+            {
+                FirstName = "Alexei",
+                LastName = "Gutaga",
+                MonthOfBirth = 5,
+                DayOfBirth = 10,
+                Location = Location.NBC,
+                UserName = "AGUTAGA",
+                Email = "Alexei.Gutaga@endava.com"
+            });
+            usersSeed.Add(new ApplicationUser()
+            {
+                FirstName = "Egor",
+                LastName = "Guzun",
+                MonthOfBirth = 6,
+                DayOfBirth = 22,
+                Location = Location.NBC,
+                UserName = "EGUZUN",
+                Email = "Egor.Guzun@endava.com"
+            });
+            usersSeed.Add(new ApplicationUser()
+            {
+                FirstName = "Alexei",
+                LastName = "Borisco",
+                MonthOfBirth = 6,
+                DayOfBirth = 22,
+                Location = Location.Tower,
+                UserName = "ABORISCO",
+                Email = "Alexei.Borisco@endava.com"
+            });
+            usersSeed.Add(new ApplicationUser()
+            {
+                FirstName = "Alexei",
+                LastName = "Borisco",
+                MonthOfBirth = 3,
+                DayOfBirth = 21,
+                Location = Location.Tower,
+                UserName = "ABORISCO",
+                Email = "Alexei.Borisco@endava.com"
+            });
+            usersSeed.Add(new ApplicationUser()
+            {
+                FirstName = "Ion",
+                LastName = "Harin",
+                MonthOfBirth = 2,
+                DayOfBirth = 28,
+                Location = Location.NBC,
+                UserName = "IHARIN",
+                Email = "Ion.Harin@endava.com"
+            });
+            usersSeed.Add(new ApplicationUser()
+            {
+                FirstName = "Maxim",
+                LastName = "Hristiniuc",
+                MonthOfBirth = 8,
+                DayOfBirth = 19,
+                Location = Location.NBC,
+                UserName = "MHristiniuc",
+                Email = "Maxim.Hristiniuc@endava.com"
+            });
+            usersSeed.Add(new ApplicationUser()
+            {
+                FirstName = "Alexandru",
+                LastName = "Iachimov",
+                MonthOfBirth = 2,
+                DayOfBirth = 23,
+                Location = Location.Tower,
+                UserName = "AIACHIMOV",
+                Email = "Alexandru.Iachimov@endava.com"
+            });
+            usersSeed.Add(new ApplicationUser()
+            {
+                FirstName = "Dmitrii",
+                LastName = "Iascov",
+                MonthOfBirth = 10,
+                DayOfBirth = 31,
+                Location = Location.Tower,
+                UserName = "DIascov",
+                Email = "Dmitrii.Iascov@endava.com"
+            });
+            usersSeed.Add(new ApplicationUser()
+            {
+                FirstName = "Iulia",
+                LastName = "Mazilu",
+                MonthOfBirth = 4,
+                DayOfBirth = 3,
+                Location = Location.NBC,
+                UserName = "IMAZILU",
+                Email = "Iulia.Mazilu@endava.com"
+            });
+            usersSeed.Add(new ApplicationUser()
+            {
+                FirstName = "Eduard",
+                LastName = "Laur",
+                MonthOfBirth = 5,
+                DayOfBirth = 18,
+                Location = Location.Tower,
+                UserName = "ELAUR",
+                Email = "Eduard.Laur@endava.com"
+            });
+            usersSeed.Add(new ApplicationUser()
+            {
+                FirstName = "Alexandru",
+                LastName = "Lazari",
+                MonthOfBirth = 8,
+                DayOfBirth = 18,
+                Location = Location.NBC,
+                UserName = "ELAUR",
+                Email = "Eduard.Laur@endava.com"
+            });
+            usersSeed.Add(new ApplicationUser()
+            {
+                FirstName = "Iulia",
+                LastName = "Lazo",
+                MonthOfBirth = 12,
+                DayOfBirth = 21,
+                Location = Location.NBC,
+                UserName = "ILAZO",
+                Email = "Iulia.Lazo@endava.com"
+            });
+            usersSeed.Add(new ApplicationUser()
+            {
+                FirstName = "Luminita",
+                LastName = "Leahu",
+                MonthOfBirth = 10,
+                DayOfBirth = 22,
+                Location = Location.NBC,
+                UserName = "LLEAHU",
+                Email = "Luminita.Leahu@endava.com"
+            });
+            usersSeed.Add(new ApplicationUser()
+            {
+                FirstName = "Ion",
+                LastName = "Lica",
+                MonthOfBirth = 2,
+                DayOfBirth = 22,
+                Location = Location.NBC,
+                UserName = "ILICA",
+                Email = "Ion.Lica@endava.com"
+            });
+            usersSeed.Add(new ApplicationUser()
+            {
+                FirstName = "Ion",
+                LastName = "Lungu",
+                MonthOfBirth = 12,
+                DayOfBirth = 23,
+                Location = Location.NBC,
+                UserName = "ILUNGU",
+                Email = "Ion.Lungu@endava.com"
+            });
+            usersSeed.Add(new ApplicationUser()
+            {
+                FirstName = "Iulia",
+                LastName = "Muraseva",
+                MonthOfBirth = 4,
+                DayOfBirth = 4,
+                Location = Location.NBC,
+                UserName = "IMURASEVA",
+                Email = "Iulia.Muraseva@endava.com"
+            });
+            usersSeed.Add(new ApplicationUser()
+            {
+                FirstName = "Ion",
+                LastName = "Maximciuc",
+                MonthOfBirth = 8,
+                DayOfBirth = 4,
+                Location = Location.Tower,
+                UserName = "IMAXIMCIUC",
+                Email = "Ion.Maximciuc@endava.com"
+            });
+            usersSeed.Add(new ApplicationUser()
+            {
+                FirstName = "Roman",
+                LastName = "Para",
+                MonthOfBirth = 4,
+                DayOfBirth = 6,
+                Location = Location.NBC,
+                UserName = "RPARA",
+                Email = "Roman.Para@endava.com"
+            });
+            usersSeed.Add(new ApplicationUser()
+            {
+                FirstName = "Ruslan",
+                LastName = "Melnic",
+                MonthOfBirth = 5,
+                DayOfBirth = 24,
+                Location = Location.NBC,
+                UserName = "RMELNIC",
+                Email = "Ruslan.Melnic@endava.com"
+            });
+            usersSeed.Add(new ApplicationUser()
+            {
+                FirstName = "Serghei",
+                LastName = "Morari",
+                MonthOfBirth = 8,
+                DayOfBirth = 17,
+                Location = Location.NBC,
+                UserName = "SMORARI",
+                Email = "Serghei.Morari@endava.com"
+            });
+            usersSeed.Add(new ApplicationUser()
+            {
+                FirstName = "Vasile",
+                LastName = "Dmitruc",
+                MonthOfBirth = 4,
+                DayOfBirth = 7,
+                Location = Location.NBC,
+                UserName = "VDMITRUC",
+                Email = "Vasile.Dmitruc@endava.com"
+            });
+            usersSeed.Add(new ApplicationUser()
+            {
+                FirstName = "Vladislav",
+                LastName = "Guleaev",
+                MonthOfBirth = 4,
+                DayOfBirth = 8,
+                Location = Location.Tower,
+                UserName = "VGULEAEV",
+                Email = "Vladislav.Guleaev@endava.com"
+            });
+            usersSeed.Add(new ApplicationUser()
+            {
+                FirstName = "Oxana",
+                LastName = "Nanu",
+                MonthOfBirth = 8,
+                DayOfBirth = 23,
+                Location = Location.NBC,
+                UserName = "ONANU",
+                Email = "Oxana.Nanu@endava.com"
+            });
+            usersSeed.Add(new ApplicationUser()
+            {
+                FirstName = "Ludmila",
+                LastName = "Bezaliuc",
+                MonthOfBirth = 4,
+                DayOfBirth = 13,
+                Location = Location.Tower,
+                UserName = "LBEZALIUC",
+                Email = "Mila.Bezaliuc@endava.com"
+            });
+            usersSeed.Add(new ApplicationUser()
+            {
+                FirstName = "Alla",
+                LastName = "Onoi",
+                MonthOfBirth = 11,
+                DayOfBirth = 27,
+                Location = Location.NBC,
+                UserName = "AONOI",
+                Email = "Alla.Onoi@endava.com"
+            });
+            usersSeed.Add(new ApplicationUser()
+            {
+                FirstName = "Leon",
+                LastName = "Osipov",
+                MonthOfBirth = 9,
+                DayOfBirth = 17,
+                Location = Location.Tower,
+                UserName = "LOSIPOV",
+                Email = "Leon.Osipov@endava.com"
+            });
+            usersSeed.Add(new ApplicationUser()
+            {
+                FirstName = "Corneliu",
+                LastName = "Pacalev",
+                MonthOfBirth = 2,
+                DayOfBirth = 28,
+                Location = Location.NBC,
+                UserName = "CPACALEV",
+                Email = "Corneliu.Pacalev@endava.com"
+            });
+            usersSeed.Add(new ApplicationUser()
+            {
+                FirstName = "Radu",
+                LastName = "Palamari",
+                MonthOfBirth = 1,
+                DayOfBirth = 7,
+                Location = Location.NBC,
+                UserName = "RPALAMARI",
+                Email = "Radu.Palamari@endava.com"
+            });
+            usersSeed.Add(new ApplicationUser()
+            {
+                FirstName = "Mihail",
+                LastName = "Pankov",
+                MonthOfBirth = 10,
+                DayOfBirth = 23,
+                Location = Location.Tower,
+                UserName = "MPANKOV",
+                Email = "Mihail.Pankov@endava.com"
+            });
+            usersSeed.Add(new ApplicationUser()
+            {
+                FirstName = "Alexandru",
+                LastName = "Papuc",
+                MonthOfBirth = 8,
+                DayOfBirth = 27,
+                Location = Location.NBC,
+                UserName = "APAPUC",
+                Email = "Alexandru.Papuc@endava.com"
+            });
+            usersSeed.Add(new ApplicationUser()
+            {
+                FirstName = "Eugen",
+                LastName = "Papuc",
+                MonthOfBirth = 7,
+                DayOfBirth = 20,
+                Location = Location.NBC,
+                UserName = "EPAPUC",
+                Email = "Eugen.Papuc@endava.com"
+            });
+            usersSeed.Add(new ApplicationUser()
+            {
+                FirstName = "Maxim",
+                LastName = "Tacu",
+                MonthOfBirth = 4,
+                DayOfBirth = 24,
+                Location = Location.NBC,
+                UserName = "MTACU",
+                Email = "Maxim.Tacu@endava.com"
+            });
+            usersSeed.Add(new ApplicationUser()
+            {
+                FirstName = "Tatiana",
+                LastName = "Moscalu",
+                MonthOfBirth = 4,
+                DayOfBirth = 26,
+                Location = Location.NBC,
+                UserName = "TMOSCALU",
+                Email = "Tatiana.Moscalu@endava.com"
+            });
+            usersSeed.Add(new ApplicationUser()
+            {
+                FirstName = "Elvira",
+                LastName = "Parpalac",
+                MonthOfBirth = 10,
+                DayOfBirth = 31,
+                Location = Location.NBC,
+                UserName = "EPARPALAC",
+                Email = "Elvira.Parpalac@endava.com"
+            });
+            usersSeed.Add(new ApplicationUser()
+            {
+                FirstName = "Gheorghe",
+                LastName = "Pascal",
+                MonthOfBirth = 7,
+                DayOfBirth = 21,
+                Location = Location.NBC,
+                UserName = "GHPASCAL",
+                Email = "Elvira.Parpalac@endava.com"
+            });
+            usersSeed.Add(new ApplicationUser()
+            {
+                FirstName = "Alexandr",
+                LastName = "Persin",
+                MonthOfBirth = 10,
+                DayOfBirth = 30,
+                Location = Location.NBC,
+                UserName = "APERSIN",
+                Email = "Alexandr.Persin@endava.com"
+            });
+            usersSeed.Add(new ApplicationUser()
+            {
+                FirstName = "Vlad",
+                LastName = "Picireanu",
+                MonthOfBirth = 9,
+                DayOfBirth = 8,
+                Location = Location.NBC,
+                UserName = "VPicireanu",
+                Email = "Vlad.Picireanu@endava.com"
+            });
+            usersSeed.Add(new ApplicationUser()
+            {
+                FirstName = "Vladimir",
+                LastName = "Placinta",
+                MonthOfBirth = 10,
+                DayOfBirth = 28,
+                Location = Location.NBC,
+                UserName = "VPLACINTA",
+                Email = "Vladimir.Placinta@endava.com"
+            });
+            usersSeed.Add(new ApplicationUser()
+            {
+                FirstName = "Evgheni",
+                LastName = "Popodneac",
+                MonthOfBirth = 6,
+                DayOfBirth = 18,
+                Location = Location.NBC,
+                UserName = "EPOPODNEAC",
+                Email = "Evgheni.Popodneac@endava.com"
+            });
+            usersSeed.Add(new ApplicationUser()
+            {
+                FirstName = "Iuliana",
+                LastName = "Popovici",
+                MonthOfBirth = 7,
+                DayOfBirth = 4,
+                Location = Location.NBC,
+                UserName = "IUPOPOVICI",
+                Email = "Iuliana.Popovici@endava.com"
+            });
+            usersSeed.Add(new ApplicationUser()
+            {
+                FirstName = "Didina",
+                LastName = "Prodan",
+                MonthOfBirth = 11,
+                DayOfBirth = 23,
+                Location = Location.NBC,
+                UserName = "DPRODAN",
+                Email = "Didina.Prodan@endava.com"
+            });
+            usersSeed.Add(new ApplicationUser()
+            {
+                FirstName = "Rinat",
+                LastName = "Pulcinschi",
+                MonthOfBirth = 8,
+                DayOfBirth = 8,
+                Location = Location.Tower,
+                UserName = "rpulcinschi",
+                Email = "Rinat.Pulcinschi@endava.com"
+            });
+            usersSeed.Add(new ApplicationUser()
+            {
+                FirstName = "Ecaterina",
+                LastName = "Raducan",
+                MonthOfBirth = 8,
+                DayOfBirth = 26,
+                Location = Location.Tower,
+                UserName = "ERADUCAN",
+                Email = "Ecaterina.Raducan@endava.com"
+            });
+            usersSeed.Add(new ApplicationUser()
+            {
+                FirstName = "Serghei",
+                LastName = "Reulet",
+                MonthOfBirth = 11,
+                DayOfBirth = 26,
+                Location = Location.NBC,
+                UserName = "SREULET",
+                Email = "Serghei.Reulet@endava.com"
+            });
+            usersSeed.Add(new ApplicationUser()
+            {
+                FirstName = "Tatiana",
+                LastName = "Reulet",
+                MonthOfBirth = 12,
+                DayOfBirth = 24,
+                Location = Location.NBC,
+                UserName = "TREULET",
+                Email = "Tatiana.Reulet@endava.com"
+            });
+            usersSeed.Add(new ApplicationUser()
+            {
+                FirstName = "Serghei",
+                LastName = "Roman",
+                MonthOfBirth = 11,
+                DayOfBirth = 26,
+                Location = Location.NBC,
+                UserName = "SROMAN",
+                Email = "Serghei.Roman@endava.com"
+            });
+            usersSeed.Add(new ApplicationUser()
+            {
+                FirstName = "Ion",
+                LastName = "Rosca",
+                MonthOfBirth = 10,
+                DayOfBirth = 22,
+                Location = Location.NBC,
+                UserName = "IROSCA",
+                Email = "Ion.Rosca@endava.com"
+            });
+            usersSeed.Add(new ApplicationUser()
+            {
+                FirstName = "Veronica",
+                LastName = "Rosca",
+                MonthOfBirth = 8,
+                DayOfBirth = 7,
+                Location = Location.NBC,
+                UserName = "VROSCA",
+                Email = "Veronica.Rosca@endava.com"
+            });
+            usersSeed.Add(new ApplicationUser()
+            {
+                FirstName = "Irina",
+                LastName = "Rudenco",
+                MonthOfBirth = 10,
+                DayOfBirth = 15,
+                Location = Location.NBC,
+                UserName = "IRUDENCO",
+                Email = "Irina.Rudenco@endava.com"
+            });
+            usersSeed.Add(new ApplicationUser()
+            {
+                FirstName = "Serghei",
+                LastName = "Rudicov",
+                MonthOfBirth = 8,
+                DayOfBirth = 26,
+                Location = Location.Tower,
+                UserName = "SERUDICOV",
+                Email = "Serghei.Rudicov@endava.com"
+            });
+            usersSeed.Add(new ApplicationUser()
+            {
+                FirstName = "Ion",
+                LastName = "Sandul",
+                MonthOfBirth = 5,
+                DayOfBirth = 22,
+                Location = Location.NBC,
+                UserName = "ISANDUL",
+                Email = "Ion.Sandul@endava.com"
+            });
+            usersSeed.Add(new ApplicationUser()
+            {
+                FirstName = "Linda",
+                LastName = "Serda-Vanghelii (Cozic)",
+                MonthOfBirth = 1,
+                DayOfBirth = 2,
+                Location = Location.NBC,
+                UserName = "LCOZIC",
+                Email = "Linda.Cozic@endava.com"
+            });
+            usersSeed.Add(new ApplicationUser()
+            {
+                FirstName = "Valeriu",
+                LastName = "Sinelnicov",
+                MonthOfBirth = 8,
+                DayOfBirth = 3,
+                Location = Location.Tower,
+                UserName = "VSinelnicov",
+                Email = "Valeriu.Sinelnicov@endava.com"
+            });
+            usersSeed.Add(new ApplicationUser()
+            {
+                FirstName = "Ivan",
+                LastName = "Sirosenco",
+                MonthOfBirth = 1,
+                DayOfBirth = 17,
+                Location = Location.NBC,
+                UserName = "ISirosenco",
+                Email = "Ivan.Sirosenco@endava.com"
+            });
+            usersSeed.Add(new ApplicationUser()
+            {
+                FirstName = "Eugeniu",
+                LastName = "Smesnoi",
+                MonthOfBirth = 5,
+                DayOfBirth = 31,
+                Location = Location.NBC,
+                UserName = "ESmesnoi",
+                Email = "Eugeniu.Smesnoi@endava.com"
+            });
+            usersSeed.Add(new ApplicationUser()
+            {
+                FirstName = "Eugeniu",
+                LastName = "Smesnoi",
+                MonthOfBirth = 5,
+                DayOfBirth = 31,
+                Location = Location.NBC,
+                UserName = "ESmesnoi",
+                Email = "Eugeniu.Smesnoi@endava.com"
+            });
+            usersSeed.Add(new ApplicationUser()
+            {
+                FirstName = "Sergiu",
+                LastName = "Speian",
+                MonthOfBirth = 7,
+                DayOfBirth = 14,
+                Location = Location.NBC,
+                UserName = "SSPEIAN",
+                Email = "Sergiu.Speian@endava.com"
+            });
+            usersSeed.Add(new ApplicationUser()
+            {
+                FirstName = "Nicolae",
+                LastName = "Stropsa",
+                MonthOfBirth = 8,
+                DayOfBirth = 19,
+                Location = Location.NBC,
+                UserName = "NStropsa",
+                Email = "Nicolae.Stropsa@endava.com"
+            });
+            usersSeed.Add(new ApplicationUser()
+            {
+                FirstName = "Alina",
+                LastName = "Mafteor",
+                MonthOfBirth = 4,
+                DayOfBirth = 29,
+                Location = Location.NBC,
+                UserName = "AMAFTEOR",
+                Email = "Alina.Mafteor@endava.com"
+            });
+            usersSeed.Add(new ApplicationUser()
+            {
+                FirstName = "Dmitri",
+                LastName = "Telinov",
+                MonthOfBirth = 9,
+                DayOfBirth = 24,
+                Location = Location.NBC,
+                UserName = "DTELINOV",
+                Email = "Dmitri.Telinov@endava.com"
+            });
+            usersSeed.Add(new ApplicationUser()
+            {
+                FirstName = "Serghei",
+                LastName = "Tibulschi",
+                MonthOfBirth = 1,
+                DayOfBirth = 24,
+                Location = Location.Tower,
+                UserName = "STIBULSCHII",
+                Email = "Serghei.Tibulschi@endava.com"
+            });
+            usersSeed.Add(new ApplicationUser()
+            {
+                FirstName = "Ion",
+                LastName = "Tomsa",
+                MonthOfBirth = 2,
+                DayOfBirth = 9,
+                Location = Location.NBC,
+                UserName = "ITOMSA",
+                Email = "Ion.Tomsa@endava.com"
+            });
+            usersSeed.Add(new ApplicationUser()
+            {
+                FirstName = "Irina",
+                LastName = "Trofimova",
+                MonthOfBirth = 1,
+                DayOfBirth = 11,
+                Location = Location.NBC,
+                UserName = "ITROFIMOVA",
+                Email = "Irina.Trofimova@endava.com"
+            });
+            usersSeed.Add(new ApplicationUser()
+            {
+                FirstName = "Roman",
+                LastName = "Tudvases",
+                MonthOfBirth = 7,
+                DayOfBirth = 8,
+                Location = Location.Tower,
+                UserName = "RTUDVASEV",
+                Email = "Roman.Tudvases@endava.com"
+            });
+            usersSeed.Add(new ApplicationUser()
+            {
+                FirstName = "Daniil",
+                LastName = "Turcan",
+                MonthOfBirth = 8,
+                DayOfBirth = 22,
+                Location = Location.NBC,
+                UserName = "DATURCAN",
+                Email = "Daniil.Turcan@endava.com"
+            });
+            usersSeed.Add(new ApplicationUser()
+            {
+                FirstName = "Sergiu",
+                LastName = "Ursachi",
+                MonthOfBirth = 8,
+                DayOfBirth = 10,
+                Location = Location.NBC,
+                UserName = "SURSACHI",
+                Email = "Sergiu.Ursachi@endava.com"
+            });
+            usersSeed.Add(new ApplicationUser()
+            {
+                FirstName = "Maxim",
+                LastName = "Ustimov",
+                MonthOfBirth = 7,
+                DayOfBirth = 9,
+                Location = Location.NBC,
+                UserName = "MUSTIMOV",
+                Email = "Maxim.Ustimov@endava.com"
+            });
+            usersSeed.Add(new ApplicationUser()
+            {
+                FirstName = "Ecaterina",
+                LastName = "Vasilean (Levitchi)",
+                MonthOfBirth = 7,
+                DayOfBirth = 26,
+                Location = Location.Tower,
+                UserName = "ELEVITCHI",
+                Email = "Ecaterina.Levitchi@endava.com"
+            });
+            usersSeed.Add(new ApplicationUser()
+            {
+                FirstName = "Ion",
+                LastName = "Verdes",
+                MonthOfBirth = 9,
+                DayOfBirth = 30,
+                Location = Location.NBC,
+                UserName = "EVERDES",
+                Email = "Ion.Verdes@endava.com"
+            });
+            usersSeed.Add(new ApplicationUser()
+            {
+                FirstName = "Vlastislava",
+                LastName = "Vihrev",
+                MonthOfBirth = 10,
+                DayOfBirth = 2,
+                Location = Location.NBC,
+                UserName = "VVlastislava",
+                Email = "Vlastislava.Vihrev@endava.com"
+            });
+            usersSeed.Add(new ApplicationUser()
+            {
+                FirstName = "Sebastian",
+                LastName = "Zavadschi",
+                MonthOfBirth = 11,
+                DayOfBirth = 21,
+                Location = Location.NBC,
+                UserName = "SZavadschi",
+                Email = "Sebastian.Zavadschi@endava.com"
+            });
+
+            #endregion
             foreach (var applicationUser in usersSeed)
             {
                 await UserManager.CreateAsync(applicationUser, "Qwerty123456");
+
+                if (applicationUser.UserName == "VGULEAEV" ||
+                    applicationUser.UserName == "DPRODAN" ||
+                    applicationUser.UserName == "ELEVITCHI" ||
+                    applicationUser.UserName == "ILAZO")
+                {
+                    await roleManager.CreateAsync(new IdentityRole(RoleNames.Admin));
+                    await UserManager.AddToRoleAsync(applicationUser.Id, RoleNames.Admin);
+                }
             }
         }
 

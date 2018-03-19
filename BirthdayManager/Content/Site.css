@@ -54,15 +54,16 @@ textarea {
 .birthday-card-image {
     text-align: center;
     font-size: 40px;
+    margin-top: -30px;
 }
 
 .birthday-card-text {
     font-size: 14px;
 }
 
-    .birthday-card-text .card-fullname {
-        font-weight: bold;
-    }
+.card-fullname {
+    font-weight: bold;
+}
 
 .card-subscriber-item {
     font-size: 14px;

@@ -1,0 +1,29 @@
+﻿@model BirthdayManager.Core.ViewModels.CallendarArrangementViewModel
+    
+<div class="col-md-3 col-sm-1">
+    <div class="panel panel-default birthday-card 
+         @if (Model.IsComplete)
+         {
+             @Html.Raw("birthday-card-complete")                
+         }"
+         data-arrangement-finished="@Model.IsComplete"
+         data-arrangement-id="@Model.Id"
+         data-arrangement-username="@Model.ApplicationUser.UserName.ToLower()">
+        
+        <div class="panel-body">
+            <p class="card-fullname">@Model.ApplicationUser.GetFullname()</p>
+            <div class="row">
+                <div class="col-xs-7">
+                    <div class="birthday-card-text">
+                        <p class="card-birthday">@Model.ApplicationUser.GetBirthdate()</p>
+                    </div>
+                </div>
+                <div class="col-xs-5">
+                    <div class="birthday-card-image">
+                        <i class="fa fa-birthday-cake"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

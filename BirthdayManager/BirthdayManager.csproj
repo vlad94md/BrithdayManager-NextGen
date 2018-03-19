@@ -230,6 +230,7 @@
     <Compile Include="Controllers\Api\ArrangementsController.cs" />
     <Compile Include="Controllers\Api\PaymentsController.cs" />
     <Compile Include="Core\Dtos\SubscriberDto.cs" />
+    <Compile Include="Core\ViewModels\CalendarViewModel.cs" />
     <Compile Include="Core\ViewModels\CallendarArrangementViewModel.cs" />
     <Compile Include="Core\Constants\WebValidationErrorMessages.cs" />
     <Compile Include="Core\ViewModels\PaymentViewModel.cs" />
@@ -604,6 +605,7 @@
     <Content Include="Views\Payments\List.cshtml" />
     <Content Include="Views\Payments\PaymentForm.cshtml" />
     <Content Include="Views\Arrangements\Calendar.cshtml" />
+    <Content Include="Views\Arrangements\_BirthdayCard.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

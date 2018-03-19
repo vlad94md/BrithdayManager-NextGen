@@ -47,7 +47,7 @@ namespace BirthdayManager.Core.Models
             return new DateTime(DateTime.Now.Year, MonthOfBirth, DayOfBirth);
         }
 
-        public bool IsBirthdayNextMonth(int period = 20)
+        public bool IsBirthdayUppcommingForDaysPeriod(int period = 20)
         {
             if (MonthOfBirth == 0 || DayOfBirth == 0)
                 return false;
@@ -55,6 +55,16 @@ namespace BirthdayManager.Core.Models
             var date = new DateTime(DateTime.Now.Year, MonthOfBirth, DayOfBirth);
 
             return DateTime.Now < date && DateTime.Now.AddDays(period) > date;
+        }
+
+        public bool IsBirthdayPastForDaysPeriod(int period = 20)
+        {
+            if (MonthOfBirth == 0 || DayOfBirth == 0)
+                return false;
+
+            var date = new DateTime(DateTime.Now.Year, MonthOfBirth, DayOfBirth);
+
+            return DateTime.Now > date && DateTime.Now.AddDays(-period) < date;
         }
 
         public string GetLocation()

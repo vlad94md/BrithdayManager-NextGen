@@ -133,7 +133,7 @@ namespace BirthdayManager.Controllers.Api
                     return NotFound();
 
                 if (arrangement.IsComplete)
-                    return BadRequest("You can't make any changes after finishing.");
+                    return BadRequest("You can't make any changes after card is completed.");
 
                 arrangement.GiftDescription = arrangementDto.GiftDescription;
                 arrangement.GiftPrice = arrangementDto.GiftPrice;
@@ -209,8 +209,7 @@ namespace BirthdayManager.Controllers.Api
                     Date = DateTime.Now,
                     Type = TransactionType.Withdraw,
                     Description = $"{arrangement.ApplicationUser.GetFullname()} birthday finished.",
-                    Amount = -calculatedFeePerPerson,
-                    IsRevertMade = true //imposible to revert this
+                    Amount = -calculatedFeePerPerson
                 });
                 user.Balance -= calculatedFeePerPerson;
             }
