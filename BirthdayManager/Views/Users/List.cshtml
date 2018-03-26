@@ -14,27 +14,27 @@ else
 {
     <table id="users" class="table table-bordered table-hover">
         <thead>
-        <tr>
-            <th>Name</th>
-            <th>Username</th>
-            <th>Date Of Birth</th>
-            <th>Balance</th>
-            <th>Location</th>
-            <th>Edit</th>
-        </tr>
+            <tr>
+                <th>Name</th>
+                <th>Username</th>
+                <th>Date Of Birth</th>
+                <th>Balance</th>
+                <th>Location</th>
+                <th>Edit</th>
+            </tr>
         </thead>
         <tbody>
-        @foreach (var user in @Model)
-        {
-            <tr>
-                <td>@Html.ActionLink(@user.GetFullname(), "Details", new { username = user.UserName }) </td>
-                <td>@user.UserName.ToLower() </td>
-                <td>@user.GetBirthdate() </td>
-                <td>@user.Balance </td>
-                <td>@user.GetLocation() </td>
-                <td>@Html.ActionLink("Edit", "Edit", new { username = user.UserName })</td>
-            </tr>
-        }
+            @foreach (var user in @Model)
+            {
+                <tr>
+                    <td>@Html.ActionLink(@user.GetFullname(), "Details", new { username = user.UserName }) </td>
+                    <td>@user.UserName.ToLower() </td>
+                    <td>@user.GetBirthdate() </td>
+                    <td>@user.Balance </td>
+                    <td>@user.GetLocation() </td>
+                    <td>@Html.ActionLink("Edit", "Edit", new { username = user.UserName })</td>
+                </tr>
+            }
         </tbody>
     </table>
 }

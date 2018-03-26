@@ -23,6 +23,24 @@ textarea {
     max-width: 280px;
 }
 
+/* Index page css */
+.index-page-header {
+    background: url(img/header-image.jpg);
+    background-size: cover;
+    margin-top: -10px;
+    height: 250px;
+    margin-bottom: 30px;
+}
+
+.index-page-header-text {
+    text-align: center;
+    background: rgba(0, 0, 0, 0.44);
+    color: white;
+    padding: 20px;
+    position: relative;
+    top: 30%;
+}
+
 /* User pages css */
 .user-details-header {
     padding-top: 20px;

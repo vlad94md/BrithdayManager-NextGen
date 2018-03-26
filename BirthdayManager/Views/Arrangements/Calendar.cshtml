@@ -138,6 +138,12 @@
                 .on('typeahead:select',
                 function (e, user) {
 
+                    if (selectedCardModel.birthdayManUsername.toLowerCase() === user.userName.toLowerCase()) {
+                        toastr.error("Birthday person can not be added in list.");
+                        $("#user-input").typeahead("val", "");
+                        return;
+                    }
+
                     for (var i = 0; i < selectedCardModel.subscribersUseranmes.length; i++) {
                         if (selectedCardModel.subscribersUseranmes[i].username.toLowerCase() == user.userName.toLowerCase()) {
                             toastr.error("User is already in list.");
@@ -216,7 +222,6 @@
 
                 $("#birthday-modal").modal('show');
             });
-
 
             $('#birthday-modal').on('hidden.bs.modal', function () {
                 clearModalDialogForm();

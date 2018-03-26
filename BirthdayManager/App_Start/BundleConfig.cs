@@ -16,7 +16,8 @@ namespace BirthdayManager
                         "~/Scripts/datatables/jquery.datatables.js",
                         "~/Scripts/datatables/datatables.bootstrap.js",
                         "~/Scripts/typeahead.bundle.js",
-                        "~/Scripts/toastr.js"
+                        "~/Scripts/toastr.js",
+                        "~/Scripts/moment.js"
                         ));
 
             bundles.Add(new ScriptBundle("~/bundles/jqueryval").Include(

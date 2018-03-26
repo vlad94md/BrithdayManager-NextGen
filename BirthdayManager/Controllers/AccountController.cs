@@ -951,16 +951,6 @@ namespace BirthdayManager.Controllers
             {
                 FirstName = "Alexei",
                 LastName = "Borisco",
-                MonthOfBirth = 6,
-                DayOfBirth = 22,
-                Location = Location.Tower,
-                UserName = "ABORISCO",
-                Email = "Alexei.Borisco@endava.com"
-            });
-            usersSeed.Add(new ApplicationUser()
-            {
-                FirstName = "Alexei",
-                LastName = "Borisco",
                 MonthOfBirth = 3,
                 DayOfBirth = 21,
                 Location = Location.Tower,

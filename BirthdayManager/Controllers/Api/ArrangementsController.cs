@@ -73,7 +73,7 @@ namespace BirthdayManager.Controllers.Api
         public IHttpActionResult SaveArrangement(ArrangementDto arrangementDto)
         {
             if (!ModelState.IsValid)
-                return BadRequest();
+                return BadRequest("Something went wrong :(");
 
             var isCreateOperation = arrangementDto.Id == 0;
             if (isCreateOperation)

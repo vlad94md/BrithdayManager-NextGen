@@ -10,11 +10,21 @@
 </head>
 <body>
     @Html.Partial("_NavBar")
+    
+    @if (ViewBag.Title == "Home Page")
+    {
+        <div class="index-page-header hidden-xs hidden-sm">
+            <h2 class="index-page-header-text">
+                Welcome to Birthday Manager!
+            </h2>
+        </div>
+    }
+
     <div class="container body-content">
         @RenderBody()
         <hr />
         <footer>
-            <p>&copy; @DateTime.Now.Year - Made with <i class="fa fa-heart" style="color: crimson"></i> by .NET Community for AM Chisinau // - Release 1.1 - Hours Spent: 9.30</p> 
+            <p>&copy; @DateTime.Now.Year - Made with <i class="fa fa-heart" style="color: crimson"></i> by .NET Community for AM Chisinau // - Release 1.1 - Hours Spent: 10</p>
             <p></p>
         </footer>
     </div>
