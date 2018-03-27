@@ -40,6 +40,7 @@ else
 
 @section Scripts{
     <script>
+        //TODO: extract the copy pase for both views for users in a one js file
         $.fn.dataTable.ext.type.order['birthday-string-pre'] = function (d) {
             var date = moment(d.trim() + ' 1999', 'MMM DD YYYY');
             return parseInt(date.format('x'), 10);

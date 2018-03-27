@@ -42,8 +42,21 @@ else
 
 @section Scripts{
     <script>
+        //TODO: extract the copy pase for both views for users in a one js file
         $(document).ready(function () {
-            var table = $("#users").DataTable();
+            $.fn.dataTable.ext.type.order['birthday-string-pre'] = function (d) {
+                var date = moment(d.trim() + ' 1999', 'MMM DD YYYY');
+                return parseInt(date.format('x'), 10);
+            };
+
+            $(document).ready(function () {
+                $("#users").DataTable({
+                    "columnDefs": [ {
+                        "type": "birthday-string",
+                        "targets": -3
+                    } ]
+                });
+            });
         });
     </script>
 }
