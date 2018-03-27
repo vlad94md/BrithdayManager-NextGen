@@ -25,7 +25,10 @@ namespace BirthdayManager.Controllers
         // GET: Payments
         public ActionResult List()
         {
-            var payments = _context.MoneyTransactions.Include(x => x.ApplicationUser).ToList();
+            var payments = _context.MoneyTransactions
+                .Include(x => x.ApplicationUser)
+                .OrderByDescending(x => x.Date)
+                .ToList();
 
             return View(payments);
         }
