@@ -39,7 +39,7 @@ namespace BirthdayManager.Core.Models
         public string GetBirthdate()
         {
             var date = new DateTime(1999, MonthOfBirth, DayOfBirth);
-            return date.ToString("MMMM d");
+            return date.ToString("MMMM dd");
         }
 
         public DateTime GetBirthdayForCurrentYear()

@@ -58,6 +58,17 @@ namespace BirthdayManager.Controllers
                 return View("PaymentForm");
             }
 
+            if (paymentViewModel.Type == TransactionType.Supply && paymentViewModel.Amount < 0)
+            {
+                ModelState.AddModelError("", WebValidationErrorMessages.AmountShouldBeMoreThanZero);
+                return View("PaymentForm");
+            }
+
+            if (paymentViewModel.Type == TransactionType.Withdraw && paymentViewModel.Amount > 0)
+            {
+                ModelState.AddModelError("", WebValidationErrorMessages.AmountShouldBeLessThanZero);
+                return View("PaymentForm");
+            }
 
             if (paymentViewModel.Id == 0)
             {
@@ -81,10 +92,6 @@ namespace BirthdayManager.Controllers
                 };
 
                 _context.MoneyTransactions.Add(newPayment);
-            }
-            else
-            {
-                //TODO: add edit for payments
             }
 
             _context.SaveChanges();
