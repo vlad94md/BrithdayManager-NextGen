@@ -41,6 +41,13 @@ textarea {
     top: 30%;
 }
 
+/* Profile pages css */
+.profile-list-header {
+    padding-top: 10px;
+    padding-bottom: 5px;
+}
+
+
 /* User pages css */
 .user-details-header {
     padding-top: 20px;
