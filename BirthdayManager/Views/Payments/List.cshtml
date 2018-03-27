@@ -48,7 +48,9 @@ else
 @section Scripts{
     <script>
         $(document).ready(function () {
-            var table = $("#transactions").DataTable();
+            var table = $("#transactions").DataTable({
+                "order": [[0, "desc"]]
+            });
 
 
             $("#transactions").on("click",
