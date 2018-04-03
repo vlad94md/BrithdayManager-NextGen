@@ -1,4 +1,6 @@
-﻿@model BirthdayManager.Models.IndexViewModel
+﻿@using BirthdayManager.Core.Constants
+@using BirthdayManager.Core.ViewModels
+@model BirthdayManager.Models.IndexViewModel
 @{
     ViewBag.Title = "Your Profile";
 }
@@ -7,22 +9,62 @@
 
 <p class="text-success">@ViewBag.StatusMessage</p>
 
-<div>
-    <h4>Change your account settings</h4>
-    <hr/>
-    <dl class="dl-horizontal">
-        <dt>Password:</dt>
-        <dd>
-            [
-            @if (Model.HasPassword)
-            {
-                @Html.ActionLink("Change your password", "ChangePassword")
-            }
-            else
-            {
-                @Html.ActionLink("Create", "SetPassword")
-            }
-            ]
-        </dd>
-    </dl>
+<div class="row">
+    <div class="col-lg-12">
+        <h4>Change your account settings</h4>
+        <hr />
+        <dl class="dl-horizontal">
+            <dt>Password:</dt>
+            <dd>
+                [
+                @if (Model.HasPassword)
+                {
+                    @Html.ActionLink("Change your password", "ChangePassword")
+                }
+                else
+                {
+                    @Html.ActionLink("Create", "SetPassword")
+                }
+                ]
+            </dd>
+        </dl>
+
+        @if (User.IsInRole(RoleNames.Admin))
+        {
+            @Html.Partial("_ImportUsersBalance")
+        }
+    </div>
 </div>
+
+
+@section scripts{
+    <script>
+        $(document).ready(function () {
+            $('#import-balance-submit').click(function (e) {
+
+                
+                var formData = new FormData($("#import-balance-form")[0]);
+
+                //var model = {
+                //    file: excelFile
+                //}
+
+                $.ajax({
+                    url: "/api/import/balance",
+                    method: "POST",
+                    data: formData,
+                    cache: false,
+                    contentType: false,
+                    processData: false,
+                    success: function (message) {
+                        toastr.success(message);
+                    },
+                    error: function (ex) {
+                        toastr.error(ex.responseJSON.message);
+                    }
+                });
+            });
+        });
+    </script>
+
+}
