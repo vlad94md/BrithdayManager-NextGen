@@ -138,9 +138,9 @@ namespace BirthdayManager.Controllers.Api
                 arrangement.GiftDescription = arrangementDto.GiftDescription;
                 arrangement.GiftPrice = arrangementDto.GiftPrice;
 
-                if (arrangementDto.SubscribersUseranmes != null && arrangementDto.SubscribersUseranmes.Any())
+                if (arrangementDto.SubscribersUseranmes != null)
                 {
-                    //Remove all previus subscription for full replace.
+                    //Remove all previous subscription for full replace.
                     var subscriptions = _context.Subscriptions.Where(x => x.ArrangementId == arrangementDto.Id);
                     _context.Subscriptions.RemoveRange(subscriptions);
 
