@@ -59,7 +59,7 @@ namespace BirthdayManager.Controllers.Api
                         continue;
                     }
 
-                    var user = _context.Users.FirstOrDefault(x => x.UserName == username);
+                    var user = _context.Users.FirstOrDefault(x => x.UserName.ToLower() == username.ToLower());
                     if (user == null)
                     {
                         return BadRequest($"{username} was not found in the system. The import process is stoped and rollback");
