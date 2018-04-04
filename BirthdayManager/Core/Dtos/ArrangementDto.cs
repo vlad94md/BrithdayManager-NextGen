@@ -16,7 +16,7 @@ namespace BirthdayManager.Core.Dtos
 
         public string GiftDescription { get; set; }
 
-        public List<SubscriberDto> SubscribersUseranmes { get; set; }
+        public List<SubscriberDto> SubscribersUseranmes { get; set; } = new List<SubscriberDto>();
 
         public DateTime Birthday { get; set; }
 
