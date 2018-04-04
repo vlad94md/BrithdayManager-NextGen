@@ -272,6 +272,7 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\PaymentsController.cs" />
+    <Compile Include="Core\ViewModels\DetailsAdminViewModel.cs" />
     <Compile Include="Core\ViewModels\UserFormViewModel.cs" />
     <Compile Include="Controllers\UsersController.cs" />
     <Compile Include="Core\Enums\Location.cs" />
@@ -637,7 +638,7 @@
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Views\Shared\_NavBar.cshtml" />
-    <Content Include="Views\Users\Details.cshtml" />
+    <Content Include="Views\Users\DetailsAdmin.cshtml" />
     <Content Include="Views\Users\List.cshtml" />
     <Content Include="Views\Users\ReadOnlyList.cshtml" />
     <Content Include="Views\Users\UserForm.cshtml" />
@@ -646,6 +647,7 @@
     <Content Include="Views\Arrangements\Calendar.cshtml" />
     <Content Include="Views\Arrangements\_BirthdayCard.cshtml" />
     <Content Include="Views\Manage\_ImportUsersBalance.cshtml" />
+    <Content Include="Views\Users\Details.cshtml" />
     <None Include="Web.Testing.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

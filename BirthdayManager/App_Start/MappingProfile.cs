@@ -5,6 +5,7 @@ using System.Web;
 using AutoMapper;
 using BirthdayManager.Controllers.Api;
 using BirthdayManager.Core.Models;
+using BirthdayManager.Core.ViewModels;
 
 namespace BirthdayManager
 {
@@ -17,6 +18,8 @@ namespace BirthdayManager
                 .ForMember(dest => dest.FullName, opt => opt.MapFrom(src => src.GetFullname()));
 
             CreateMap<UserDto, ApplicationUser>();
+            CreateMap<ApplicationUser, UserFormViewModel>();
+            CreateMap<UserFormViewModel, ApplicationUser>();
         }
     }
 }

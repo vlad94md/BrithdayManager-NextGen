@@ -1,10 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Web;
 using System.Web.Http.Results;
 using System.Web.Mvc;
+using AutoMapper;
+using BirthdayManager.Controllers.Api;
 using BirthdayManager.Core.Constants;
+using BirthdayManager.Core.Enums;
 using BirthdayManager.Core.Models;
 using BirthdayManager.Core.ViewModels;
 using BirthdayManager.Persistence;
@@ -40,6 +44,29 @@ namespace BirthdayManager.Controllers
             if (user == null)
                 return HttpNotFound();
 
+            if (User.IsInRole(RoleNames.Admin))
+            {              
+                var subscriptions = _context.Subscriptions
+                    .Include(x => x.User)
+                    .Include(x => x.Arrangement.ApplicationUser)
+                    .Where(x => x.ApplicationUserId == user.Id && !x.Arrangement.IsComplete)                   
+                    .ToList();
+
+                var payments = _context.MoneyTransactions.Where(x => x.ApplicationUserId == user.Id && x.Type == TransactionType.Supply)
+                    .Include(x => x.ApplicationUser)
+                    .OrderByDescending(x => x.Date)
+                    .Take(10)
+                    .ToList();
+
+                var viewModel = new DetailsAdminViewModel()
+                {
+                    Subscriptions = subscriptions,
+                    Payments = payments,
+                    User = user
+                };
+
+                return View("DetailsAdmin", viewModel);
+            }
 
             return View(user);
         }
@@ -54,21 +81,9 @@ namespace BirthdayManager.Controllers
                 return HttpNotFound();
             }
 
-            //TODO: add automapper
-            var viewModel = new UserFormViewModel()
-            {
-                Id = user.Id,
-                UserName = user.UserName,
-                Email = user.Email,
-                DayOfBirth = user.DayOfBirth,
-                MonthOfBirth = user.MonthOfBirth,
-                LastName = user.LastName,
-                FirstName = user.FirstName,
-                Location = user.Location,
-                Balance = user.Balance
-            };
+            var userViewModel = Mapper.Map<ApplicationUser, UserFormViewModel>(user);
 
-            return View("UserForm", viewModel);
+            return View("UserForm", userViewModel);
         }
 
         [HttpPost]
