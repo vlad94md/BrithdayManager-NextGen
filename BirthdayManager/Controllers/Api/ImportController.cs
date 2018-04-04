@@ -31,8 +31,7 @@ namespace BirthdayManager.Controllers.Api
                 return BadRequest("Excel file should be selected.");
             }
 
-            HttpContext context = HttpContext.Current;
-            HttpPostedFile postedFile = context.Request.Files["file"];
+            HttpPostedFile postedFile = HttpContext.Current.Request.Files["file"];
 
             if (postedFile == null || postedFile.ContentType != "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet")
             {

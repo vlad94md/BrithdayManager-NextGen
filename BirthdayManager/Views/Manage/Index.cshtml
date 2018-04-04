@@ -28,7 +28,11 @@
                 ]
             </dd>
         </dl>
+    </div>
+</div>
 
+<div class="row">
+    <div class="col-lg-12">
         @if (User.IsInRole(RoleNames.Admin))
         {
             @Html.Partial("_ImportUsersBalance")
@@ -40,14 +44,22 @@
 @section scripts{
     <script>
         $(document).ready(function () {
+            $('#import-balance-help').popover({
+                html: true,
+                content: function () {
+                    return '<img src="'+$(this).data('img') + '" />';
+                }
+            });
+
+
             $('#import-balance-submit').click(function (e) {
 
-                
-                var formData = new FormData($("#import-balance-form")[0]);
+                //Start animate loading
+                $('#import-balance-loader').show();
+                $('#import-balance-submit').addClass('disabled');
+                $('#import-balance-submit').attr('disabled', 'true');
 
-                //var model = {
-                //    file: excelFile
-                //}
+                var formData = new FormData($("#import-balance-form")[0]);
 
                 $.ajax({
                     url: "/api/import/balance",
@@ -58,9 +70,19 @@
                     processData: false,
                     success: function (message) {
                         toastr.success(message);
+
+                        //Stop animate
+                        $('#import-balance-loader').hide();
+                        $('#import-balance-submit').removeClass('disabled');
+                        $('#import-balance-submit').removeAttr('disabled');
                     },
                     error: function (ex) {
                         toastr.error(ex.responseJSON.message);
+
+                        //Stop animate
+                        $('#import-balance-loader').hide();
+                        $('#import-balance-submit').removeClass('disabled');
+                        $('#import-balance-submit').removeAttr('disabled');
                     }
                 });
             });

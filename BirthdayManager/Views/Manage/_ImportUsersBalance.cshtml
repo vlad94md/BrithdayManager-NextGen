@@ -10,12 +10,18 @@
                     <div class="col-xs-12 col-lg-6">
                         <div class="form-group">
                             Import File
+                            <a class="btn btn-link" id="import-balance-help" data-container="body" data-toggle="popover" data-placement="right"
+                               style="font-size: 16px;" data-img="/Content/img/import-balance-help.png">
+                                <i class="fa fa-question-circle"></i>
+                            </a>
                             <input name="file" type="file" accept=".xls , .xlsx">
+                            
                         </div>
                     </div>
                     <div class="col-xs-12 col-lg-6">
                         <a href="javascript:void(0);" id="import-balance-submit" class="pull-right btn btn-primary btn-lg">
-                            <i class="fa fa-cloud-upload fa-fw"></i> Send
+                            <i class="fa fa-cloud-upload fa-fw"></i> 
+                            Send <i id="import-balance-loader" class="fa fa-circle-o-notch fa-spin" style="margin-left: 5px; display: none"></i>
                         </a>
                     </div>
                 </form>
