@@ -91,7 +91,8 @@ namespace BirthdayManager.Controllers
                     Date = DateTime.Now,
                     Type = paymentViewModel.Type,
                     Amount = paymentViewModel.Amount,
-                    Description = paymentViewModel.Description
+                    Description = paymentViewModel.Description,
+                    CreatedBy = User.Identity.Name
                 };
 
                 _context.MoneyTransactions.Add(newPayment);

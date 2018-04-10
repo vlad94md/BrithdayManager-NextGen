@@ -311,6 +311,10 @@
     <Compile Include="Migrations\201803151307208_AddedIsRevetedForTransaction.Designer.cs">
       <DependentUpon>201803151307208_AddedIsRevetedForTransaction.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201804100707162_AddedCreatedByForPayment.cs" />
+    <Compile Include="Migrations\201804100707162_AddedCreatedByForPayment.Designer.cs">
+      <DependentUpon>201804100707162_AddedCreatedByForPayment.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Core\ViewModels\AccountViewModels.cs" />
     <Compile Include="Persistence\ApplicationDbContext.cs" />
@@ -687,6 +691,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201803151307208_AddedIsRevetedForTransaction.resx">
       <DependentUpon>201803151307208_AddedIsRevetedForTransaction.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201804100707162_AddedCreatedByForPayment.resx">
+      <DependentUpon>201804100707162_AddedCreatedByForPayment.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

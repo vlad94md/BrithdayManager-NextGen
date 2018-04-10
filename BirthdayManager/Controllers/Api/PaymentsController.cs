@@ -4,6 +4,7 @@ using System.Data.Entity;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Web;
 using System.Web.Http;
 using BirthdayManager.Core.Constants;
 using BirthdayManager.Core.Enums;
@@ -59,7 +60,8 @@ namespace BirthdayManager.Controllers.Api
                 Amount = -transaction.Amount,
                 Date = DateTime.Now,
                 Description = "Revert for " + transaction.Id,
-                Type = TransactionType.Revert
+                Type = TransactionType.Revert,
+                CreatedBy = HttpContext.Current.User.Identity.Name
             };
 
             transaction.ApplicationUser.Balance += revertedTransaction.Amount;

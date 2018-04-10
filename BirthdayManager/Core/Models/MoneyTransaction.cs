@@ -25,6 +25,8 @@ namespace BirthdayManager.Core.Models
 
         public ApplicationUser ApplicationUser { get; set; }
 
+        public string CreatedBy { get; set; }
+
         public bool IsRevertMade { get; set; }
     }
 }
