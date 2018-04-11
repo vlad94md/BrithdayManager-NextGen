@@ -86,11 +86,14 @@ namespace BirthdayManager.Controllers
                     .Take(10)
                     .ToList();
 
+                var forecastBalance = user.Balance - (subscriptions.Count * ApplicationConstants.FixedBirthdayFee);
+
                 var viewModel = new DetailsAdminViewModel()
                 {
                     Subscriptions = subscriptions,
                     Payments = payments,
-                    User = user
+                    User = user,
+                    ForecastBalance = forecastBalance
                 };
 
                 return View("DetailsAdmin", viewModel);

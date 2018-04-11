@@ -8,5 +8,6 @@ namespace BirthdayManager.Core.ViewModels
         public ApplicationUser User { get; set; }
         public List<Subscription> Subscriptions { get; set; }
         public List<MoneyTransaction> Payments { get; set; }
+        public decimal ForecastBalance { get; set; }
     }
 }

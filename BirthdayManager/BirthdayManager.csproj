@@ -257,6 +257,7 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\Api\ImportController.cs" />
+    <Compile Include="Core\Constants\ApplicationConstants.cs" />
     <Compile Include="Core\Dtos\ArrangementDto.cs" />
     <Compile Include="Controllers\Api\ArrangementsController.cs" />
     <Compile Include="Controllers\Api\PaymentsController.cs" />

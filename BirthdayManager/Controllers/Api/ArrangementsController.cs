@@ -16,7 +16,6 @@ namespace BirthdayManager.Controllers.Api
     public class ArrangementsController : ApiController
     {
         private ApplicationDbContext _context;
-        private decimal _fixedBirthdayFee = 60;
 
         public ArrangementsController()
         {
@@ -195,8 +194,8 @@ namespace BirthdayManager.Controllers.Api
 
             var subscribers = _context.Users.Where(x => subsribersIds.Contains(x.Id)).ToList();
 
-            var totalBudgetCollected = subscribers.Count * _fixedBirthdayFee;
-            var calculatedFeePerPerson = _fixedBirthdayFee - (totalBudgetCollected - arrangement.GiftPrice) / subscribers.Count;
+            var totalBudgetCollected = subscribers.Count * ApplicationConstants.FixedBirthdayFee;
+            var calculatedFeePerPerson = ApplicationConstants.FixedBirthdayFee - (totalBudgetCollected - arrangement.GiftPrice) / subscribers.Count;
 
             if (calculatedFeePerPerson <= 0)
                 return BadRequest("Calculated amount per person cannot be negative. Change the gift price.");
