@@ -17,8 +17,7 @@
                     <li>Birthday: @Model.User.GetBirthdate()</li>
                     <li>Email: @Model.User.Email</li>
                     <li>Location: @Model.User.GetLocation()</li>
-                    <li>Balance: @Model.User.Balance</li>
-                    <li>Forecast: (@Model.ForecastBalance)</li>
+                    <li>Balance: @Model.User.Balance @if(@Model.ForecastBalance != Model.User.Balance){<b>(@Model.ForecastBalance)</b> }</li>
                 </ul>
             </div>
         </div>
