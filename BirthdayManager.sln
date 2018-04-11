@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BirthdayManager", "Birthday
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BirthdayManager.Tests", "BirthdayManager.Tests\BirthdayManager.Tests.csproj", "{51EE8871-6270-4127-B873-06E4C2A3029C}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BirthdayManager.Service", "BirthdayManager.Service\BirthdayManager.Service.csproj", "{F843353D-8E0E-4854-878E-D69AF3D77633}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -26,6 +28,12 @@ Global
 		{51EE8871-6270-4127-B873-06E4C2A3029C}.Release|Any CPU.Build.0 = Release|Any CPU
 		{51EE8871-6270-4127-B873-06E4C2A3029C}.Testing|Any CPU.ActiveCfg = Testing|Any CPU
 		{51EE8871-6270-4127-B873-06E4C2A3029C}.Testing|Any CPU.Build.0 = Testing|Any CPU
+		{F843353D-8E0E-4854-878E-D69AF3D77633}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F843353D-8E0E-4854-878E-D69AF3D77633}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F843353D-8E0E-4854-878E-D69AF3D77633}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F843353D-8E0E-4854-878E-D69AF3D77633}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F843353D-8E0E-4854-878E-D69AF3D77633}.Testing|Any CPU.ActiveCfg = Release|Any CPU
+		{F843353D-8E0E-4854-878E-D69AF3D77633}.Testing|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -3,25 +3,53 @@ using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 using System.Web;
-using System.Web.Http.Results;
 using System.Web.Mvc;
 using AutoMapper;
-using BirthdayManager.Controllers.Api;
 using BirthdayManager.Core.Constants;
 using BirthdayManager.Core.Enums;
 using BirthdayManager.Core.Models;
 using BirthdayManager.Core.ViewModels;
 using BirthdayManager.Persistence;
+using BirthdayManager.Service;
 
 namespace BirthdayManager.Controllers
 {
     public class UsersController : Controller
     {
         private ApplicationDbContext _context;
+        private IEmailSender _emailSender;
 
         public UsersController()
         {
             _context = new ApplicationDbContext();
+            _emailSender = new EmailSender();
+        }
+
+        [HttpGet]
+        [Route("Send")]
+        public string SendEmail(string username)
+        {
+            var user = _context.Users.FirstOrDefault(x => x.UserName == username);
+
+            if (user == null)
+            {
+                return $"{username} not found.";
+            }
+
+            if (user.Balance < 0)
+            {
+                var result = _emailSender.SendMail(user.Email, "Test Email", 
+                    $"<h2>Test html</h2> <p> Please be kindly informed that you have a negative balance {user.Balance}.</p>");
+
+                if (!result)
+                {
+                    return $"An error has occured";
+                }
+
+                return $"Email about debts was sent to {username}";
+            }
+
+            return $"{username} has no debts.";
         }
 
         [HttpGet]
