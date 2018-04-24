@@ -6,11 +6,11 @@ using System.Web;
 using System.Web.Mvc;
 using AutoMapper;
 using BirthdayManager.Core.Constants;
+using BirthdayManager.Core.Entities;
 using BirthdayManager.Core.Enums;
-using BirthdayManager.Core.Models;
-using BirthdayManager.Core.ViewModels;
-using BirthdayManager.Persistence;
+using BirthdayManager.Data;
 using BirthdayManager.Service;
+using BirthdayManager.ViewModels;
 
 namespace BirthdayManager.Controllers
 {

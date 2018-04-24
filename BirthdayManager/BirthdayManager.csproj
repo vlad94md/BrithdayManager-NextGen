@@ -262,32 +262,33 @@
     <Compile Include="Controllers\Api\ArrangementsController.cs" />
     <Compile Include="Controllers\Api\PaymentsController.cs" />
     <Compile Include="Core\Dtos\SubscriberDto.cs" />
-    <Compile Include="Core\ViewModels\CalendarViewModel.cs" />
-    <Compile Include="Core\ViewModels\CallendarArrangementViewModel.cs" />
+    <Compile Include="Services\IUserService.cs" />
+    <Compile Include="ViewModels\CalendarViewModel.cs" />
+    <Compile Include="ViewModels\CalendarArrangementViewModel.cs" />
     <Compile Include="Core\Constants\WebValidationErrorMessages.cs" />
-    <Compile Include="Core\ViewModels\ImportUsersViewModel.cs" />
-    <Compile Include="Core\ViewModels\PaymentViewModel.cs" />
+    <Compile Include="ViewModels\ImportUsersViewModel.cs" />
+    <Compile Include="ViewModels\PaymentViewModel.cs" />
     <Compile Include="Core\Dtos\UserDto.cs" />
     <Compile Include="Controllers\Api\UsersController.cs" />
     <Compile Include="Controllers\ArrangementsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\PaymentsController.cs" />
-    <Compile Include="Core\ViewModels\DetailsAdminViewModel.cs" />
-    <Compile Include="Core\ViewModels\UserFormViewModel.cs" />
+    <Compile Include="ViewModels\DetailsAdminViewModel.cs" />
+    <Compile Include="ViewModels\UserFormViewModel.cs" />
     <Compile Include="Controllers\UsersController.cs" />
     <Compile Include="Core\Enums\Location.cs" />
     <Compile Include="Core\Enums\TransactionType.cs" />
-    <Compile Include="Core\Models\Arrangement.cs" />
-    <Compile Include="Core\Models\MoneyTransaction.cs" />
-    <Compile Include="Core\Models\Subscription.cs" />
+    <Compile Include="Core\Entities\Arrangement.cs" />
+    <Compile Include="Core\Entities\MoneyTransaction.cs" />
+    <Compile Include="Core\Entities\Subscription.cs" />
     <Compile Include="Core\Constants\RoleNames.cs" />
     <Compile Include="ErrorHandler\AiHandleErrorAttribute.cs" />
     <Compile Include="GlimpseSecurityPolicy.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Core\Models\ApplicationUser.cs" />
+    <Compile Include="Core\Entities\ApplicationUser.cs" />
     <Compile Include="Migrations\201803120721429_Initial.cs" />
     <Compile Include="Migrations\201803120721429_Initial.Designer.cs">
       <DependentUpon>201803120721429_Initial.cs</DependentUpon>
@@ -317,9 +318,9 @@
       <DependentUpon>201804100707162_AddedCreatedByForPayment.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
-    <Compile Include="Core\ViewModels\AccountViewModels.cs" />
-    <Compile Include="Persistence\ApplicationDbContext.cs" />
-    <Compile Include="Core\ViewModels\ManageViewModels.cs" />
+    <Compile Include="ViewModels\AccountViewModels.cs" />
+    <Compile Include="Data\ApplicationDbContext.cs" />
+    <Compile Include="ViewModels\ManageViewModels.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
@@ -701,9 +702,9 @@
     <WCFMetadata Include="Connected Services\" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\BirthdayManager.Service\BirthdayManager.Service.csproj">
+    <ProjectReference Include="..\BirthdayManager.Service\BirthdayManager.Services.csproj">
       <Project>{f843353d-8e0e-4854-878e-d69af3d77633}</Project>
-      <Name>BirthdayManager.Service</Name>
+      <Name>BirthdayManager.Services</Name>
     </ProjectReference>
   </ItemGroup>
   <PropertyGroup>

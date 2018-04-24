@@ -1,13 +1,12 @@
 ﻿using System;
-using BirthdayManager.Core.Models;
+using BirthdayManager.Core.Entities;
+using BirthdayManager.Data;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin;
 using Microsoft.Owin.Security.Cookies;
 using Microsoft.Owin.Security.Google;
 using Owin;
-using BirthdayManager.Models;
-using BirthdayManager.Persistence;
 
 namespace BirthdayManager
 {

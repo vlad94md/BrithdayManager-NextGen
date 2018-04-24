@@ -1,9 +1,8 @@
 ﻿using System.Data.Entity;
-using BirthdayManager.Core.Models;
-using BirthdayManager.Models;
+using BirthdayManager.Core.Entities;
 using Microsoft.AspNet.Identity.EntityFramework;
 
-namespace BirthdayManager.Persistence
+namespace BirthdayManager.Data
 {
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {

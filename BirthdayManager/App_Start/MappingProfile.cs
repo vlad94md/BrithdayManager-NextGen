@@ -4,8 +4,9 @@ using System.Linq;
 using System.Web;
 using AutoMapper;
 using BirthdayManager.Controllers.Api;
-using BirthdayManager.Core.Models;
-using BirthdayManager.Core.ViewModels;
+using BirthdayManager.Core.Dtos;
+using BirthdayManager.Core.Entities;
+using BirthdayManager.ViewModels;
 
 namespace BirthdayManager
 {

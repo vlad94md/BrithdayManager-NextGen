@@ -1,11 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Web;
 using BirthdayManager.Core.Enums;
 
-namespace BirthdayManager.Core.Models
+namespace BirthdayManager.Core.Entities
 {
     public class MoneyTransaction
     {

@@ -1,24 +1,17 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Web;
+using BirthdayManager.Core.Entities;
 
-namespace BirthdayManager.Core.Models
+namespace BirthdayManager.ViewModels
 {
-    public class Arrangement
+    public class CalendarArrangementViewModel
     {
         public int Id { get; set; }
 
         [Required]
         public string ApplicationUserId { get; set; }
 
-        public decimal GiftPrice { get; set; }
-
-        public string GiftDescription { get; set; }
-
-        public List<Subscription> Subscribers { get; set; }
-
+        [Required]
         public DateTime Birthday { get; set; }
 
         public bool IsComplete { get; set; }

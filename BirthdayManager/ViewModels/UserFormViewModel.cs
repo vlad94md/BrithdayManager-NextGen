@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using BirthdayManager.Core.Enums;
 
-namespace BirthdayManager.Core.ViewModels
+namespace BirthdayManager.ViewModels
 {
     public class UserFormViewModel
     {

@@ -1,4 +1,4 @@
-using BirthdayManager.Persistence;
+using BirthdayManager.Data;
 
 namespace BirthdayManager.Migrations
 {

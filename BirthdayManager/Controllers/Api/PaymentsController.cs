@@ -7,9 +7,9 @@ using System.Net.Http;
 using System.Web;
 using System.Web.Http;
 using BirthdayManager.Core.Constants;
+using BirthdayManager.Core.Entities;
 using BirthdayManager.Core.Enums;
-using BirthdayManager.Core.Models;
-using BirthdayManager.Persistence;
+using BirthdayManager.Data;
 
 namespace BirthdayManager.Controllers.Api
 {

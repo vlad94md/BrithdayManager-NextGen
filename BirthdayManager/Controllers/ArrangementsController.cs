@@ -5,8 +5,8 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using BirthdayManager.Core.Constants;
-using BirthdayManager.Core.ViewModels;
-using BirthdayManager.Persistence;
+using BirthdayManager.Data;
+using BirthdayManager.ViewModels;
 
 namespace BirthdayManager.Controllers
 {
@@ -39,12 +39,12 @@ namespace BirthdayManager.Controllers
             usersWithUpcommingBirthday.RemoveAll(x => x.UserName == currrentUserName);
             usersWithRecentPastBirthday.RemoveAll(x => x.UserName == currrentUserName);
 
-            var upcommingBirthdays = new List<CallendarArrangementViewModel>();
-            var recentPastBirthdays = new List<CallendarArrangementViewModel>();
+            var upcommingBirthdays = new List<CalendarArrangementViewModel>();
+            var recentPastBirthdays = new List<CalendarArrangementViewModel>();
 
             foreach (var user in usersWithUpcommingBirthday)
             {
-                var arrangement = new CallendarArrangementViewModel()
+                var arrangement = new CalendarArrangementViewModel()
                 {
                     ApplicationUser = user,
                     ApplicationUserId = user.Id,
@@ -67,7 +67,7 @@ namespace BirthdayManager.Controllers
 
             foreach (var user in usersWithRecentPastBirthday)
             {
-                var arrangement = new CallendarArrangementViewModel()
+                var arrangement = new CalendarArrangementViewModel()
                 {
                     ApplicationUser = user,
                     ApplicationUserId = user.Id,

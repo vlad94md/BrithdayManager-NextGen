@@ -6,8 +6,9 @@ using System.Net.Http;
 using System.Web.Http;
 using AutoMapper;
 using BirthdayManager.Core.Constants;
-using BirthdayManager.Core.Models;
-using BirthdayManager.Persistence;
+using BirthdayManager.Core.Dtos;
+using BirthdayManager.Core.Entities;
+using BirthdayManager.Data;
 
 namespace BirthdayManager.Controllers.Api
 {

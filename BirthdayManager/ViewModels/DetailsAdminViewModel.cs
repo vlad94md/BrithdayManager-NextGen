@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
-using BirthdayManager.Core.Models;
+using BirthdayManager.Core.Entities;
 
-namespace BirthdayManager.Core.ViewModels
+namespace BirthdayManager.ViewModels
 {
     public class DetailsAdminViewModel
     {

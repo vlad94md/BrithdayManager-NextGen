@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using BirthdayManager.Core.Enums;
 
-namespace BirthdayManager.Controllers.Api
+namespace BirthdayManager.Core.Dtos
 {
     public class UserDto
     {

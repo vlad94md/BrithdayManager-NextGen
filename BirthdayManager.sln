@@ -7,7 +7,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BirthdayManager", "Birthday
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BirthdayManager.Tests", "BirthdayManager.Tests\BirthdayManager.Tests.csproj", "{51EE8871-6270-4127-B873-06E4C2A3029C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BirthdayManager.Service", "BirthdayManager.Service\BirthdayManager.Service.csproj", "{F843353D-8E0E-4854-878E-D69AF3D77633}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BirthdayManager.Services", "BirthdayManager.Service\BirthdayManager.Services.csproj", "{F843353D-8E0E-4854-878E-D69AF3D77633}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

@@ -5,9 +5,8 @@ using System.Net;
 using System.Net.Http;
 using System.Web;
 using System.Web.Http;
-using BirthdayManager.Core.Models;
-using BirthdayManager.Core.ViewModels;
-using BirthdayManager.Persistence;
+using BirthdayManager.Core.Entities;
+using BirthdayManager.Data;
 using ClosedXML.Excel;
 
 namespace BirthdayManager.Controllers.Api

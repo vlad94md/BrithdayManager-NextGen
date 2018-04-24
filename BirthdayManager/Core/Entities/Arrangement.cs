@@ -1,17 +1,22 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using BirthdayManager.Core.Models;
 
-namespace BirthdayManager.Core.ViewModels
+namespace BirthdayManager.Core.Entities
 {
-    public class CallendarArrangementViewModel
+    public class Arrangement
     {
         public int Id { get; set; }
 
         [Required]
         public string ApplicationUserId { get; set; }
 
-        [Required]
+        public decimal GiftPrice { get; set; }
+
+        public string GiftDescription { get; set; }
+
+        public List<Subscription> Subscribers { get; set; }
+
         public DateTime Birthday { get; set; }
 
         public bool IsComplete { get; set; }

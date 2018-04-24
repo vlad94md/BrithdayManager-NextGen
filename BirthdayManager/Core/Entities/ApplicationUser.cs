@@ -6,7 +6,7 @@ using BirthdayManager.Core.Enums;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 
-namespace BirthdayManager.Core.Models
+namespace BirthdayManager.Core.Entities
 {
     public class ApplicationUser : IdentityUser
     {

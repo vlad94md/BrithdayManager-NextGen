@@ -7,13 +7,12 @@ using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 using BirthdayManager.Core.Constants;
+using BirthdayManager.Core.Entities;
 using BirthdayManager.Core.Enums;
-using BirthdayManager.Core.Models;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
-using BirthdayManager.Models;
-using BirthdayManager.Persistence;
+using BirthdayManager.ViewModels;
 using Microsoft.AspNet.Identity.EntityFramework;
 
 namespace BirthdayManager.Controllers

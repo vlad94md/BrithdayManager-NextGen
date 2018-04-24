@@ -4,7 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.UI;
-using BirthdayManager.Persistence;
+using BirthdayManager.Data;
 
 namespace BirthdayManager.Controllers
 {
